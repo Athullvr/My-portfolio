@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Athul VR | MLOps & Geospatial Systems Engineer</title>
+  <meta name="description" content="Portfolio of Athul VR, B.Tech Computer Science student specializing in MLOps, geospatial analysis, and building resilient machine learning infrastructure.">
+  
+  <!-- Styling -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Page Load Reveal Overlay -->
+  <div class="page-loader" id="page-loader">
+    <svg class="page-loader__logo" fill="none" height="48" viewBox="0 0 82 82" width="48" aria-hidden="true">
+      <path d="M0.0100037 0.00999451H81.4C81.4 11.46 81.56 22.86 81.18 34.24C81.14 35.58 78.31 37.25 76.46 38.05C58.23 45.99 39.94 53.78 21.64 62.56H80.96V81.13C76.14 81.13 71.35 81.13 66.56 81.13C51.96 81.13 37.35 81.29 22.76 80.97C20.02 80.91 16.71 79.62 14.71 77.77C-0.0799837 64.15 9.16091e-06 64.06 9.16091e-06 43.87C9.16091e-06 29.51 9.16091e-06 15.15 9.16091e-06 0L0.0100037 0.00999451ZM77.9 19.18C77.73 18.86 77.56 18.53 77.39 18.21H18.63V44.6C38.92 35.9 58.41 27.54 77.9 19.18Z" fill="currentColor"/>
+    </svg>
+    <div class="page-loader__bar-track">
+      <div class="page-loader__bar-fill"></div>
+    </div>
+    <span class="page-loader__text">initializing</span>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- SVG Grid Background (Full-page architectural grid) -->
+  <div class="svg-grid-bg" aria-hidden="true">
+    <svg class="svg-grid-bg__pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <pattern id="grid-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(25, 24, 24, 0.06)" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+    </svg>
+  </div>
+
+  <!-- CRT Noise Overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Top Sticky Navigation -->
+  <nav class="top-nav" aria-label="Main navigation">
+    <div class="top-nav__inner">
+      <a class="top-nav__wordmark" href="#home" aria-label="Athul VR, Home">
+        <!-- SVG Terminal Bracket Logo -->
+        <svg class="top-nav__logo" fill="none" height="20" viewBox="0 0 82 82" width="20" aria-hidden="true">
+          <path d="M0.0100037 0.00999451H81.4C81.4 11.46 81.56 22.86 81.18 34.24C81.14 35.58 78.31 37.25 76.46 38.05C58.23 45.99 39.94 53.78 21.64 62.56H80.96V81.13C76.14 81.13 71.35 81.13 66.56 81.13C51.96 81.13 37.35 81.29 22.76 80.97C20.02 80.91 16.71 79.62 14.71 77.77C-0.0799837 64.15 9.16091e-06 64.06 9.16091e-06 43.87C9.16091e-06 29.51 9.16091e-06 15.15 9.16091e-06 0L0.0100037 0.00999451ZM77.9 19.18C77.73 18.86 77.56 18.53 77.39 18.21H18.63V44.6C38.92 35.9 58.41 27.54 77.9 19.18Z" fill="currentColor"/>
+        </svg>
+        <span class="top-nav__wordmark-name">athul.vr</span>
+      </a>
+
+      <!-- Burger Menu for Mobile -->
+      <button class="top-nav__burger" id="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <div class="top-nav__burger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+
+      <!-- Desktop Links -->
+      <ul class="top-nav__links" id="nav-links">
+        <li><a class="top-nav__link is-active" href="#home">home</a></li>
+        <li><a class="top-nav__link" href="#focus">focus</a></li>
+        <li><a class="top-nav__link" href="#projects">projects</a></li>
+        <li><a class="top-nav__link" href="#hackathons">hackathons</a></li>
+        <li><a class="top-nav__link" href="#skills">skills</a></li>
+        <li><a class="top-nav__link" href="#experience">experience</a></li>
+        <li><a class="top-nav__link" href="#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Content Wrapper -->
+  <main class="page-content" id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home" aria-labelledby="hero-title" data-hero-init="false">
+      <!-- Data Rain Canvas (Soft, sparse, subtle) -->
+      <div class="data-rain-bg" aria-hidden="true" role="presentation" style="--rain-opacity: 0.08;">
+        <canvas class="data-rain-bg__canvas" id="rain-canvas"></canvas>
+        <div class="bg-fade bg-fade--radial"></div>
+      </div>
+
+      <!-- Decorative Section Number -->
+      <div class="section-number section-number--top-left" aria-hidden="true" data-parallax="section-number">01</div>
+
+      <div class="page-section__container hero__container">
+        <!-- Hero Text -->
+        <div class="hero__content">
+          <div class="hero__pre-title" data-hero-reveal>
+            <span class="system-annotation system-annotation--muted">// system.ready</span>
+            <span class="system-annotation system-annotation--accent hero__micro-hook">
+              1st Year CS · 3 Hackathons Won · 3 Resilient ML Systems
+            </span>
+          </div>
+
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__greeting" data-hero-reveal>Hello, I'm</span>
+            <span aria-label="Athul VR" class="hero__name" data-hero-reveal data-compile="default">Athul VR</span>
+          </h1>
+
+          <p aria-label="MLOps & Geospatial Systems" class="hero__role" data-hero-reveal data-compile="binary">MLOps & Geospatial Systems</p>
+          
+          <p class="hero__tagline" data-hero-reveal>
+            Approaching Machine Learning as a systems engineering discipline. I prioritize operational readiness, observability, and infrastructure over model-only thinking.
+          </p>
+
+          <div class="availability-label" data-hero-reveal>
+            <span class="availability-dot"></span>
+            Available for MLOps & GIS engineering projects
+          </div>
+
+          <div class="hero__cta" data-hero-reveal>
+            <a class="btn btn--primary" href="#focus">See My Focus</a>
+            <a class="btn btn--secondary" href="#projects">Explore Projects</a>
+            <a class="btn btn--secondary" href="javascript:window.print();" aria-label="Print or Download Resume">
+              <svg fill="currentColor" height="12" viewBox="0 0 16 16" width="12" style="margin-right: 4px;">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+              </svg>
+              PDF Resume
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Photo (Terminal Frame) -->
+        <div class="hero__visual" data-hero-reveal>
+          <div class="terminal-frame">
+            <div class="terminal-frame__header">
+              <div class="terminal-frame__dots">
+                <span class="terminal-frame__dot terminal-frame__dot--red"></span>
+                <span class="terminal-frame__dot terminal-frame__dot--yellow"></span>
+                <span class="terminal-frame__dot terminal-frame__dot--green"></span>
+              </div>
+              <span class="terminal-frame__title">athul_vr.jpg</span>
+            </div>
+            <div class="terminal-frame__content">
+              <div class="profile-img-wrapper">
+                <img class="profile-img" src="assets/profile.jpg" alt="Athul VR Profile Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal Tech Marquee Strip -->
+    <div class="marquee-section" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-content">
+          <span class="marquee-item">Python</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">PyTorch</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">TensorFlow</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Scikit-Learn</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Docker</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">FastAPI</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Prometheus</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Grafana</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">GeoPandas</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">NetworkX</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">LSTM</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">MLOps</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">CI/CD</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Rasterio</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Pandas</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">NumPy</span>
+          <span class="marquee-separator">◆</span>
+        </div>
+        <div class="marquee-content">
+          <span class="marquee-item">Python</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">PyTorch</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">TensorFlow</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Scikit-Learn</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Docker</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">FastAPI</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Prometheus</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Grafana</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">GeoPandas</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">NetworkX</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">LSTM</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">MLOps</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">CI/CD</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Rasterio</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">Pandas</span>
+          <span class="marquee-separator">◆</span>
+          <span class="marquee-item">NumPy</span>
+          <span class="marquee-separator">◆</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- FOCUS / METHODOLOGY SECTION -->
+    <section class="page-section page-section--alt" id="focus" aria-labelledby="focus-title">
+      <!-- Minesweeper Background Animation -->
+      <div aria-hidden="true" class="minesweeper-bg" data-component-id="msw-9" data-msw-cell-size="48" data-msw-mine-density="15" data-msw-speed="1" role="presentation" style="--msw-opacity: 0.28;">
+        <div class="minesweeper-bg__grid"></div>
+      </div>
+      <div class="bg-fade bg-fade--edges" aria-hidden="true"></div>
+      <div class="section-scanline" aria-hidden="true"></div>
+      
+      <div class="section-number section-number--top-right" aria-hidden="true" data-parallax="section-number">02</div>
+
+      <div class="page-section__container">
+        <div class="section-header" data-reveal="blur">
+          <span class="system-annotation system-annotation--muted">// focus.methodology</span>
+          <h2 class="section-title" id="focus-title">Engineering Focus</h2>
+          <p class="section-subtitle">
+            Applying a "Build, Deploy, Monitor, Improve" methodology to construct functional, defensible systems under competitive constraints.
+          </p>
+        </div>
+
+        <!-- 3 Focus Cards -->
+        <div class="problems-grid" data-reveal-section data-reveal-stagger="0.12">
+          <!-- Card 1 -->
+          <div class="problem-card-wrapper" data-reveal="up">
+            <div class="problem-card">
+              <span class="problem-card__index">[01]</span>
+              <h3 class="problem-card__title">Production Readiness</h3>
+              <p class="problem-card__text">
+                Prioritizing system robustness and operational reliability over pure model thinking. I ensure models translate effectively into production-ready microservices.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="problem-card-wrapper" data-reveal="up">
+            <div class="problem-card">
+              <span class="problem-card__index">[02]</span>
+              <h3 class="problem-card__title">Real-time Observability</h3>
+              <p class="problem-card__text">
+                Engineering deep telemetry integrations with Prometheus and Grafana. I build automated feedback loops to track model drift, resource constraints, and data quality.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="problem-card-wrapper" data-reveal="up">
+            <div class="problem-card">
+              <span class="problem-card__index">[03]</span>
+              <h3 class="problem-card__title">Geospatial Analytics</h3>
+              <p class="problem-card__text">
+                Fusing ML pipelines with spatial databases. Experienced in modeling complex network routing graphs and GIS calculations using GeoPandas, Rasterio, and NetworkX.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FEATURED PROJECTS SECTION -->
+    <section class="page-section" id="projects" aria-labelledby="projects-title">
+      <div class="section-number section-number--top-left" aria-hidden="true" data-parallax="section-number">03</div>
+      
+      <div class="page-section__container">
+        <div class="section-header" data-reveal="blur">
+          <span class="system-annotation system-annotation--muted">// systems.deployed</span>
+          <h2 class="section-title" id="projects-title">Featured Projects</h2>
+          <p class="section-subtitle">
+            Deploying ML models and telemetry analytics as high-performance, structured systems.
+          </p>
+        </div>
+
+        <div class="work-grid" data-reveal-section data-reveal-stagger="0.15">
+          <!-- CascadeNet v2.0 -->
+          <div class="work-card card-glow-pulse" data-reveal="up">
+            <div class="work-card__image-mock">
+              <canvas class="work-card__canvas-bg" data-project="cascadenet"></canvas>
+              <div class="work-card__img-alt">CascadeNet v2.0</div>
+            </div>
+            <div class="work-card__content">
+              <div class="work-card__header">
+                <span class="work-card__year">2025 – Present</span>
+                <span class="work-card__role">AI & Simulator Architect</span>
+              </div>
+              <h3 class="work-card__title">CascadeNet v2.0</h3>
+              <p class="work-card__description">
+                A 3-layer AI flood actionability engine mapping 100-scenario propagation loops across infrastructure graphs. Features an auto-routing system sending plans to 5 agency stakeholders in &lt;20 seconds, resolving coordination failures. Tested on Kerala 2018 flood data.
+              </p>
+              <a class="work-card__github" href="https://github.com/Athullvr/CascadeNet" target="_blank" rel="noopener noreferrer">
+                github.com/Athullvr/CascadeNet ↗
+              </a>
+              <div class="work-card__tags">
+                <span class="work-card__tag">Python</span>
+                <span class="work-card__tag">PyTorch</span>
+                <span class="work-card__tag">LSTM</span>
+                <span class="work-card__tag">FastAPI</span>
+                <span class="work-card__tag">GeoPandas</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TelemetryIQ -->
+          <div class="work-card card-glow-pulse" data-reveal="up">
+            <div class="work-card__image-mock">
+              <canvas class="work-card__canvas-bg" data-project="telemetryiq"></canvas>
+              <div class="work-card__img-alt">TelemetryIQ</div>
+            </div>
+            <div class="work-card__content">
+              <div class="work-card__header">
+                <span class="work-card__year">2026 – Present</span>
+                <span class="work-card__role">MLOps Infrastructure</span>
+              </div>
+              <h3 class="work-card__title">TelemetryIQ</h3>
+              <p class="work-card__description">
+                Two-stage ML anomaly pipeline using Isolation Forest for incident detection and Random Forest for classification (Leaks, Spikes, Bad Deploys). Features native Prometheus/Grafana diagnostics and FinOps economic scaling evaluations.
+              </p>
+              <a class="work-card__github" href="https://github.com/Athullvr/TEAM-KORE-HFC" target="_blank" rel="noopener noreferrer">
+                github.com/Athullvr/TEAM-KORE-HFC ↗
+              </a>
+              <div class="work-card__tags">
+                <span class="work-card__tag">Scikit-learn</span>
+                <span class="work-card__tag">Isolation Forest</span>
+                <span class="work-card__tag">Prometheus</span>
+                <span class="work-card__tag">Grafana</span>
+                <span class="work-card__tag">FastAPI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Churn Analytics Engine -->
+          <div class="work-card card-glow-pulse" data-reveal="up">
+            <div class="work-card__image-mock">
+              <canvas class="work-card__canvas-bg" data-project="churn"></canvas>
+              <div class="work-card__img-alt">Churn Analytics</div>
+            </div>
+            <div class="work-card__content">
+              <div class="work-card__header">
+                <span class="work-card__year">May 2026</span>
+                <span class="work-card__role">ML Developer</span>
+              </div>
+              <h3 class="work-card__title">Churn Analytics Engine</h3>
+              <p class="work-card__description">
+                End-to-end ANN predictive model for customer attrition based on demographics. Incorporates a Scikit-learn data preprocessing pipeline with feature scaling (StandardScaler) and leakage protections, optimized with dropout layers and Adam.
+              </p>
+              <a class="work-card__github" href="https://github.com/Athullvr/Churn-analysis-using-ANN" target="_blank" rel="noopener noreferrer">
+                github.com/Athullvr/Churn-analysis-using-ANN ↗
+              </a>
+              <div class="work-card__tags">
+                <span class="work-card__tag">TensorFlow</span>
+                <span class="work-card__tag">Keras</span>
+                <span class="work-card__tag">ANN</span>
+                <span class="work-card__tag">Scikit-learn</span>
+                <span class="work-card__tag">Pandas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- HACKATHONS SECTION -->
+    <section class="page-section page-section--alt" id="hackathons" aria-labelledby="hackathons-title">
+      <div class="section-number section-number--top-right" aria-hidden="true" data-parallax="section-number">04</div>
+      <div class="section-scanline" aria-hidden="true"></div>
+
+      <div class="page-section__container">
+        <div class="section-header" data-reveal="blur">
+          <span class="system-annotation system-annotation--muted">// competitions.won</span>
+          <h2 class="section-title" id="hackathons-title">Hackathon Record</h2>
+          <p class="section-subtitle">
+            Validating technical execution, design velocity, and teamwork under strict clock constraints.
+          </p>
+        </div>
+
+        <div class="hackathons-grid" data-reveal-section data-reveal-stagger="0.12">
+          <!-- 1st Place Hackathena -->
+          <div class="hackathon-card" data-reveal="up">
+            <div class="glyph-wrapper">
+              <span class="hackathon-award hackathon-award--1st">1st Place</span>
+              <!-- Technical 3x3 Grid Icon -->
+              <div class="glyph-grid-icon" aria-hidden="true">
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+              </div>
+            </div>
+            <div class="hackathon-image-wrapper">
+              <img src="assets/hackathena.jpg" alt="Hackathena 2026 1st Place Award Ceremony" class="hackathon-image" loading="lazy">
+            </div>
+            <h3 class="hackathon-title">Hackathena 2026</h3>
+            <p class="hackathon-meta">Jyothi Engineering College (National)</p>
+            <p class="hackathon-desc">
+              Won first place overall for developing <strong>CascadeNet</strong>, a multi-stakeholder ML flood-response coordination simulator routing automated disaster response plans.
+            </p>
+          </div>
+
+          <!-- 2nd Place BeachHack -->
+          <div class="hackathon-card" data-reveal="up">
+            <div class="glyph-wrapper">
+              <span class="hackathon-award hackathon-award--2nd">2nd Place</span>
+              <div class="glyph-grid-icon" aria-hidden="true">
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+              </div>
+            </div>
+            <div class="hackathon-image-wrapper">
+              <img src="assets/beachhack.jpg" alt="BeachHack H4C 2nd Place Prize Ceremony" class="hackathon-image" loading="lazy">
+            </div>
+            <h3 class="hackathon-title">BeachHack H4C</h3>
+            <p class="hackathon-meta">CODE Techletics, CCE (36-hr Flagship)</p>
+            <p class="hackathon-desc">
+              Developed a specialized DevOps telemetry intelligence pipeline using Docker, Scikit-learn, and Git workflows for automated incident detection.
+            </p>
+          </div>
+
+          <!-- 1st Place Webathon -->
+          <div class="hackathon-card" data-reveal="up">
+            <div class="glyph-wrapper">
+              <span class="hackathon-award hackathon-award--1st">1st Place</span>
+              <div class="glyph-grid-icon" aria-hidden="true">
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+                <span class="glyph-grid-icon__cell glyph-grid-icon__cell--active"></span>
+              </div>
+            </div>
+            <div class="hackathon-image-wrapper">
+              <img src="assets/webathon.jpg" alt="Webathon 1st Place Award Ceremony" class="hackathon-image" loading="lazy">
+            </div>
+            <h3 class="hackathon-title">Webathon</h3>
+            <p class="hackathon-meta">ISI & Taltrop at CCE (12-hr, 19 Teams)</p>
+            <p class="hackathon-desc">
+              Designed and deployed a highly responsive frontend web system under tight constraints, winning top marks for performance and accessibility.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SKILLS SECTION -->
+    <section class="page-section" id="skills" aria-labelledby="skills-title">
+      <div class="section-number section-number--top-left" aria-hidden="true" data-parallax="section-number">05</div>
+
+      <div class="page-section__container">
+        <div class="section-header" data-reveal="blur">
+          <span class="system-annotation system-annotation--muted">// toolkit.infrastructure</span>
+          <h2 class="section-title" id="skills-title">Skills & Tooling</h2>
+          <p class="section-subtitle">
+            Languages, frameworks, and tools used to construct and observe machine learning operations.
+          </p>
+        </div>
+
+        <div class="skills-container" data-reveal-section data-reveal-stagger="0.1">
+          <!-- Group 1: AI / ML -->
+          <div class="skills-group" data-reveal="up">
+            <h3 class="skills-group__title">AI & Machine Learning</h3>
+            <div class="skills-list">
+              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+                <span class="skill-name">PyTorch & LSTM</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: TelemetryIQ, Churn Analytics">
+                <span class="skill-name">Scikit-learn</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: Churn Analytics Engine">
+                <span class="skill-name">TensorFlow / Keras</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: All Projects">
+                <span class="skill-name">Pandas & NumPy</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: All Projects">
+                <span class="skill-name">Model Training & Eval</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 3: Geospatial -->
+          <div class="skills-group" data-reveal="up">
+            <h3 class="skills-group__title">Geospatial & GIS</h3>
+            <div class="skills-list">
+              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+                <span class="skill-name">GeoPandas</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+                <span class="skill-name">Rasterio</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+                <span class="skill-name">NetworkX (Graphs)</span>
+              </div>
+              <div class="skill-item" data-tooltip="Used in: Geospatial Analysis">
+                <span class="skill-name">ArcGIS / QGIS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- EXPERIENCE & EDUCATION -->
+    <section class="page-section page-section--alt" id="experience" aria-labelledby="experience-title">
+      <div class="section-number section-number--top-right" aria-hidden="true" data-parallax="section-number">06</div>
+      <div class="section-scanline" aria-hidden="true"></div>
+
+      <div class="page-section__container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-7); align-items: start;">
+          
+          <!-- Experience Timeline -->
+          <div>
+            <div class="section-header" data-reveal="blur">
+              <span class="system-annotation system-annotation--muted">// experience.history</span>
+              <h2 class="section-title" id="experience-title">Experience</h2>
+            </div>
+            
+            <div class="timeline">
+              <div class="timeline-item" data-reveal="up">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">IPR Lead</h3>
+                  <span class="timeline-date">2025 – 2026 (2 mos)</span>
+                </div>
+                <div class="timeline-subtitle">Christ College of Engineering</div>
+                <ul class="timeline-bullets">
+                  <li class="timeline-bullet">Led intellectual property awareness and innovation initiatives on campus.</li>
+                  <li class="timeline-bullet">Coordinated student projects aligned with startup pipelines and research pathways.</li>
+                  <li class="timeline-bullet">Supported validation of ideas, documentation workflows, and accelerated prototype phases.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Section -->
+          <div>
+            <div class="section-header" data-reveal="blur">
+              <span class="system-annotation system-annotation--muted">// education.status</span>
+              <h2 class="section-title">Education</h2>
+            </div>
+
+            <div class="timeline">
+              <div class="timeline-item" data-reveal="up">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">B.Tech Computer Science</h3>
+                  <span class="timeline-date">2025 – 2029</span>
+                </div>
+                <div class="timeline-subtitle">Christ College of Engineering, Irinjalakuda</div>
+                <p class="timeline-desc">
+                  First-year undergraduate student. Dedicated focus on AI-assisted development paradigms, core machine learning mathematics, and infrastructure scaling.
+                </p>
+                <ul class="timeline-bullets" style="margin-top: 8px;">
+                  <li class="timeline-bullet"><strong>Coursework Focus:</strong> AI-Assisted Development, Systems Engineering.</li>
+                  <li class="timeline-bullet"><strong>Ongoing studies:</strong> NPTEL Machine Learning certification.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Volunteering Sub-section -->
+        <div style="margin-top: var(--space-8);">
+          <div class="section-header" data-reveal="blur">
+            <span class="system-annotation system-annotation--muted">// community.contributions</span>
+            <h2 class="section-title">Volunteering</h2>
+          </div>
+
+          <div class="volunteering-grid" data-reveal-section data-reveal-stagger="0.12">
+            <!-- Card 1 -->
+            <div class="volunteer-card" data-reveal="up">
+              <div class="volunteer-meta">
+                <span class="system-annotation system-annotation--muted">Technical Volunteer</span>
+                <span class="timeline-date">Feb 2026</span>
+              </div>
+              <h3 class="volunteer-title">IEDC CCE</h3>
+              <p class="volunteer-text">
+                Supported end-to-end technical operations for "Belfort of Wall Street", a 30-hour flagship startup simulation at CCE's Techletics. Managed user progression boards, scoring systems, and real-time coordination under high-pressure conditions.
+              </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="volunteer-card" data-reveal="up">
+              <div class="volunteer-meta">
+                <span class="system-annotation system-annotation--muted">District Cluster Volunteer</span>
+                <span class="timeline-date">Feb 2026</span>
+              </div>
+              <h3 class="volunteer-title">IEDC Thrissur</h3>
+              <p class="volunteer-text">
+                Coordinated pitch presentations, judging line-ups, and participant communications in the Health Domain track at the Thrissur District IEDC Summit, maintaining clean logistical flows.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CONTACT SECTION -->
+    <section class="page-section contact-section" id="contact" aria-labelledby="contact-heading">
+      <div class="dot-grid" aria-hidden="true" data-parallax="dot-grid"></div>
+      <div class="bg-fade bg-fade--top" aria-hidden="true"></div>
+      <div class="section-number section-number--bottom-left" aria-hidden="true" data-parallax="section-number">07</div>
+
+      <div class="page-section__container contact-container">
+        <!-- SVG Glyph Icon -->
+        <svg fill="none" height="48" viewBox="0 0 24 24" width="48" data-reveal="scale" style="color: var(--color-blue-500); margin-bottom: var(--space-2);" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z" fill="currentColor"/>
+        </svg>
+
+        <h2 class="contact-title" id="contact-heading" data-reveal="scale">Let's Connect</h2>
+        <p class="contact-subtitle" data-reveal="scale">
+          Ready to talk system metrics, geospatial modeling, or ML pipelines?
+        </p>
+
+        <span class="contact-availability" data-reveal="fade">
+          <span class="availability-dot"></span>
+          Thrissur, Kerala · Active on GitHub and LinkedIn
+        </span>
+
+        <div class="contact-ctas" data-reveal="up">
+          <a class="btn btn--primary" href="mailto:athul.vr.cce@gmail.com">Send Email</a>
+          <a class="btn btn--secondary" href="https://linkedin.com/in/athul-vr-bb67a8379" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+        </div>
+
+        <div class="contact-socials" data-reveal="up">
+          <a class="contact-social-link" href="https://github.com/Athullvr" target="_blank" rel="noopener noreferrer">
+            <svg fill="currentColor" height="14" viewBox="0 0 16 16" width="14" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            github.com/Athullvr
+          </a>
+          <span style="color: var(--color-border-subtle)">|</span>
+          <a class="contact-social-link" href="https://linkedin.com/in/athul-vr-bb67a8379" target="_blank" rel="noopener noreferrer">
+            <svg fill="currentColor" height="14" viewBox="0 0 16 16" width="14" aria-hidden="true">
+              <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm10.975 8.212V9.306c0-2.207-1.178-3.235-2.75-3.235-1.268 0-1.838.697-2.154 1.185V6.169H7.614c.03.677 0 7.225 0 7.225h2.4v-4.03c0-.216.015-.432.078-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.4z"/>
+            </svg>
+            linkedin.com/in/athul-vr-bb67a8379
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Footer -->
+  <footer class="site-footer">
+    <!-- Tron Grid Canvas (The bottom page animation) -->
+    <div aria-hidden="true" class="tron-grid" data-component-id="tg-footer">
+      <canvas class="tron-grid__canvas" id="tron-canvas"></canvas>
+    </div>
+    
+    <div class="site-footer__container">
+      <div class="site-footer__meta">
+        <span>© 2026 Athul VR</span>
+        <span>·</span>
+        <span>Built with HTML & Vanilla CSS</span>
+      </div>
+      <div class="site-footer__meta">
+        <a class="site-footer__link" href="#home">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Lenis + GSAP + Custom JS -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js" defer></script>
+
+  <!-- Custom Cursor Follower -->
+  <div class="custom-cursor" data-custom-cursor aria-hidden="true">
+    <div class="custom-cursor__dot"></div>
+    <div class="custom-cursor__ring"></div>
+  </div>
+  <div class="cursor-target" data-cursor-target aria-hidden="true">
+    <div class="cursor-target__corner cursor-target__corner--tl"></div>
+    <div class="cursor-target__corner cursor-target__corner--tr"></div>
+    <div class="cursor-target__corner cursor-target__corner--bl"></div>
+    <div class="cursor-target__corner cursor-target__corner--br"></div>
+  </div>
+</body>
+</html>
+
+
+
