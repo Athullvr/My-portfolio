@@ -95,8 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const length = chars.length;
     const startTime = performance.now();
     let tickCount = 0;
+    let finished = false;
+
+    function finalize() {
+      if (finished) return;
+      finished = true;
+      spans.forEach((span, idx) => {
+        span.textContent = chars[idx] === " " ? "\u00A0" : chars[idx];
+        span.style.width = ""; // Reset inline width
+      });
+    }
 
     function tick() {
+      if (finished) return; // safety timer already finalized this element
+
       const elapsed = performance.now() - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const easedProgress = progress * progress; // Quadratic ease-in
@@ -120,13 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (progress < 1) {
         requestAnimationFrame(tick);
       } else {
-        // Final normalization
-        spans.forEach((span, idx) => {
-          span.textContent = chars[idx] === " " ? "\u00A0" : chars[idx];
-          span.style.width = ""; // Reset inline width
-        });
+        finalize();
       }
     }
+
+    // Safety net: if requestAnimationFrame stalls or gets interrupted for
+    // any reason (backgrounded tab, an error elsewhere on the page, etc.),
+    // this is the site's name/role text \u2014 it must never get stuck scrambled.
+    // Force the real text to show no later than duration + 600ms.
+    setTimeout(finalize, duration + 600);
 
     requestAnimationFrame(tick);
   }
@@ -2105,32 +2119,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('page-loader');
     if (!loader) return;
 
-    const logo = loader.querySelector('.page-loader__logo');
-    const barFill = loader.querySelector('.page-loader__bar-fill');
-    const barTrack = loader.querySelector('.page-loader__bar-track');
-    const text = loader.querySelector('.page-loader__text');
+    let dismissed = false;
+    function dismissLoader() {
+      if (dismissed) return;
+      dismissed = true;
+      loader.classList.add('is-loaded');
+      loader.style.display = 'none';
+      document.body.style.overflow = '';
+    }
 
-    // Prevent scroll during loading
-    document.body.style.overflow = 'hidden';
+    // Hard safety net: no matter what happens with GSAP/CDN scripts,
+    // never leave visitors stuck on a black "initializing" screen.
+    const safetyTimer = setTimeout(dismissLoader, 3500);
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        loader.classList.add('is-loaded');
-        document.body.style.overflow = '';
+    try {
+      const logo = loader.querySelector('.page-loader__logo');
+      const barFill = loader.querySelector('.page-loader__bar-fill');
+      const barTrack = loader.querySelector('.page-loader__bar-track');
+      const text = loader.querySelector('.page-loader__text');
+
+      if (typeof gsap === 'undefined') {
+        throw new Error('GSAP not available for page loader');
       }
-    });
 
-    tl.to(logo, { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' }, 0.2)
-      .to(barTrack, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
-      .to(text, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
-      .to(barFill, { width: '100%', duration: 0.8, ease: 'power2.inOut' }, 0.5)
-      .to([logo, barTrack, text], { opacity: 0, y: -20, duration: 0.3, ease: 'power2.in', stagger: 0.05 }, '+=0.2')
-      .to(loader, {
-        clipPath: 'inset(0 0 100% 0)',
-        duration: 0.7,
-        ease: 'power3.inOut'
-      }, '-=0.1')
-      .set(loader, { display: 'none' });
+      // Prevent scroll during loading
+      document.body.style.overflow = 'hidden';
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          clearTimeout(safetyTimer);
+          dismissLoader();
+        }
+      });
+
+      tl.to(logo, { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' }, 0.2)
+        .to(barTrack, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
+        .to(text, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
+        .to(barFill, { width: '100%', duration: 0.8, ease: 'power2.inOut' }, 0.5)
+        .to([logo, barTrack, text], { opacity: 0, y: -20, duration: 0.3, ease: 'power2.in', stagger: 0.05 }, '+=0.2')
+        .to(loader, {
+          clipPath: 'inset(0 0 100% 0)',
+          duration: 0.7,
+          ease: 'power3.inOut'
+        }, '-=0.1')
+        .set(loader, { display: 'none' });
+    } catch (err) {
+      // GSAP missing/failed to load (blocked CDN, offline, slow network) —
+      // don't trap visitors behind the loader, just skip the animation.
+      clearTimeout(safetyTimer);
+      dismissLoader();
+    }
   }
 
   // ==========================================
@@ -2398,6 +2436,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initCanvasVisibilityPause();
   } catch (err) {
     showDebugBanner(err);
+    // If something in the bootstrap sequence threw synchronously, don't
+    // leave the page loader covering the site or scroll locked.
+    const loader = document.getElementById('page-loader');
+    if (loader && !loader.classList.contains('is-loaded')) {
+      loader.classList.add('is-loaded');
+      loader.style.display = 'none';
+    }
+    document.body.style.overflow = '';
   }
 
 });
