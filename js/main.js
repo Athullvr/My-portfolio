@@ -776,11 +776,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5.5 3D CARD TILT EFFECT
   // ==========================================
   function init3DCardTilt() {
-    // Only apply on devices with hover capability
     if (window.matchMedia("(hover: none)").matches) return;
     
     const cards = document.querySelectorAll('.work-card');
     cards.forEach(card => {
+      let rafId = null;
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+
+      function updateTilt() {
+        currentX += (targetX - currentX) * 0.15;
+        currentY += (targetY - currentY) * 0.15;
+
+        card.style.transform = `perspective(1000px) rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg) translateY(-4px)`;
+
+        if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+          rafId = requestAnimationFrame(updateTilt);
+        } else {
+          rafId = null;
+        }
+      }
+
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -789,16 +807,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = ((y - centerY) / centerY) * -6;
-        const rotateY = ((x - centerX) / centerX) * 6;
+        targetX = ((y - centerY) / centerY) * -5;
+        targetY = ((x - centerX) / centerX) * 5;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px) scale(1.02)`;
-        card.style.transition = 'transform 0.1s ease-out';
+        if (!rafId) {
+          rafId = requestAnimationFrame(updateTilt);
+        }
       });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.transition = 'transform 0.5s var(--ease-standard), box-shadow 0.5s var(--ease-standard)';
+        targetX = 0;
+        targetY = 0;
+        if (!rafId) {
+          rafId = requestAnimationFrame(updateTilt);
+        }
+        card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        setTimeout(() => {
+          card.style.transition = '';
+        }, 400);
       });
     });
   }
@@ -1286,22 +1312,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const dotX = mouseX;
       const dotY = mouseY;
 
-      if (Math.abs(dotX - lastDotX) > threshold || Math.abs(dotY - lastDotY) > threshold) {
-        dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+      if (Math.abs(dotX - lastDotX) > 0.05 || Math.abs(dotY - lastDotY) > 0.05) {
+        dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`;
         lastDotX = dotX;
         lastDotY = dotY;
       }
 
       if (
-        Math.abs(ringX - lastRingX) > threshold || 
-        Math.abs(ringY - lastRingY) > threshold || 
-        Math.abs(ringW - lastRingW) > threshold || 
-        Math.abs(ringH - lastRingH) > threshold ||
-        Math.abs(ringRadius - lastRingR) > threshold
+        Math.abs(ringX - lastRingX) > 0.05 || 
+        Math.abs(ringY - lastRingY) > 0.05 || 
+        Math.abs(ringW - lastRingW) > 0.05 || 
+        Math.abs(ringH - lastRingH) > 0.05 ||
+        Math.abs(ringRadius - lastRingR) > 0.05
       ) {
-        ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
-        ring.style.width = `${ringW}px`;
-        ring.style.height = `${ringH}px`;
+        ring.style.transform = `translate3d(${ringX.toFixed(2)}px, ${ringY.toFixed(2)}px, 0)`;
+        ring.style.width = `${ringW.toFixed(1)}px`;
+        ring.style.height = `${ringH.toFixed(1)}px`;
         ring.style.borderRadius = `${ringRadius}px`;
         
         lastRingX = ringX;
@@ -2079,32 +2105,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
 
+    document.documentElement.style.scrollBehavior = 'auto';
+
     const lenis = new Lenis({
-      lerp: 0.08,
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 0.8,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.8,
       infinite: false
     });
 
     // Sync Lenis with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    if (typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+    }
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
+    if (typeof gsap !== 'undefined') {
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
 
     // Handle anchor link clicks for smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
         const targetId = anchor.getAttribute('href');
-        if (targetId === '#') return;
+        if (!targetId || targetId === '#') return;
         const target = document.querySelector(targetId);
         if (target) {
           e.preventDefault();
-          lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+          lenis.scrollTo(target, { offset: -70, duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
         }
       });
     });
@@ -2376,16 +2414,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!container || index >= totalSections - 1) return;
 
       gsap.to(container, {
-        yPercent: -18,
-        opacity: 0.3,
-        scale: 0.96,
-        filter: 'blur(2px)',
+        yPercent: -12,
+        opacity: 0.4,
+        scale: 0.98,
         ease: 'none',
         scrollTrigger: {
           trigger: section,
-          start: 'bottom 75%',
-          end: 'bottom 5%',
-          scrub: 1.5
+          start: 'bottom 80%',
+          end: 'bottom 10%',
+          scrub: 1.0
         }
       });
     });
@@ -2395,21 +2432,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // BOOTSTRAP INITIALIZERS
   // ==========================================
   try {
-    // 1. Page Loader (must be first)
-    initPageLoader();
-
-    // 2. Lenis Smooth Scroll
-    const lenis = initLenis();
-
-    // 3. GSAP Animations
+    // 1. Register GSAP Plugins first
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
+    }
 
-      // Remove native smooth scroll if Lenis is active
-      if (lenis) {
-        document.documentElement.style.scrollBehavior = 'auto';
-      }
+    // 2. Page Loader (must be early)
+    initPageLoader();
 
+    // 3. Lenis Smooth Scroll
+    const lenis = initLenis();
+
+    // 4. GSAP Animations
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       initGSAPAnimations();
       initSectionClipReveals();
       initSplitTextReveals();
