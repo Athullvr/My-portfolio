@@ -293,6 +293,11 @@ a:not(.btn):not(.top-nav__link):not(.project-card):not(.contact-social-link):not
   background: rgba(200, 90, 60, 0.12);
   border-color: rgba(200, 90, 60, 0.25);
 }
+.page-section--alt .hackathon-award--select {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(59, 130, 246, 0.3);
+}
 
 /* Timeline (Experience section) */
 .page-section--alt .timeline:before {
@@ -1228,6 +1233,11 @@ a:not(.btn):not(.top-nav__link):not(.project-card):not(.contact-social-link):not
   color: var(--color-orange-700);
   background: rgba(200, 90, 60, 0.15);
   border: 1px solid rgba(200, 90, 60, 0.3);
+}
+.hackathon-award--select {
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .hackathon-title {
