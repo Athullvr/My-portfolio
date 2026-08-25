@@ -1007,6 +1007,21 @@ a:not(.btn):not(.top-nav__link):not(.project-card):not(.contact-social-link):not
   transition: opacity var(--motion-slow) var(--ease-standard), transform var(--motion-slow) var(--ease-standard);
 }
 
+.work-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--motion-slow) var(--ease-standard), filter var(--motion-slow) var(--ease-standard);
+  filter: contrast(1.02);
+}
+
+.work-card:hover .work-card__photo {
+  transform: scale(1.04);
+}
+
 /* On hover, the telemetry visualization intensifies to read as a live
    preview of the system's actual behavior (routing graph / anomaly
    pipeline / neural net) rather than decorative background noise. */
