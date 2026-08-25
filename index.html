@@ -307,20 +307,27 @@
         <div class="work-grid" data-reveal-section data-reveal-stagger="0.15">
           <!-- CascadeNet v2.0 -->
           <div class="work-card card-glow-pulse" data-reveal="up">
-            <div class="work-card__image-mock">
-              <canvas class="work-card__canvas-bg" data-project="cascadenet"></canvas>
-              <span class="work-card__preview-label">Live routing graph</span>
-              <div class="work-card__img-alt">CascadeNet v2.0</div>
-            </div>
             <div class="work-card__content">
               <div class="work-card__header">
                 <span class="work-card__year">2025 – Present</span>
-                <span class="work-card__role">AI & Simulator Architect</span>
+                <span class="work-card__role">AI & Simulation Architect</span>
               </div>
               <h3 class="work-card__title">CascadeNet v2.0</h3>
+              <span class="work-card__subtitle">// Flood Simulation & Disaster Graph Routing</span>
               <p class="work-card__description">
-                A 3-layer AI flood actionability engine mapping 100-scenario propagation loops across infrastructure graphs. Features an auto-routing system sending plans to 5 agency stakeholders in &lt;20 seconds, resolving coordination failures. Tested on Kerala 2018 flood data.
+                A 3-layer AI flood actionability engine mapping 100+ scenario cascading failure loops across infrastructure graphs. Evaluated on Kerala 2018 flood topologies, the engine generates optimal multi-agency evacuation paths and dispatches automated response protocols to 5 emergency stakeholders in &lt;20 seconds.
               </p>
+              <ul class="work-card__features">
+                <li class="work-card__feature-item">
+                  <span><strong>LSTM Temporal Forecasting:</strong> Predicts reservoir outflow propagation and node inundation probabilities.</span>
+                </li>
+                <li class="work-card__feature-item">
+                  <span><strong>NetworkX Dynamic Routing:</strong> Computes optimal evacuation routes under simulated bridge and roadway failures.</span>
+                </li>
+                <li class="work-card__feature-item">
+                  <span><strong>Geospatial Pipeline:</strong> High-throughput FastAPI backend integrating GeoPandas and Rasterio spatial data.</span>
+                </li>
+              </ul>
               <a class="work-card__github" href="https://github.com/Athullvr/CascadeNet" target="_blank" rel="noopener noreferrer">
                 github.com/Athullvr/CascadeNet ↗
               </a>
@@ -330,55 +337,73 @@
                 <span class="work-card__tag" data-tag="ml">LSTM</span>
                 <span class="work-card__tag" data-tag="infra">FastAPI</span>
                 <span class="work-card__tag" data-tag="geo">GeoPandas</span>
+                <span class="work-card__tag" data-tag="geo">Rasterio</span>
+                <span class="work-card__tag" data-tag="geo">NetworkX</span>
               </div>
             </div>
           </div>
 
           <!-- TelemetryIQ -->
           <div class="work-card card-glow-pulse" data-reveal="up">
-            <div class="work-card__image-mock">
-              <canvas class="work-card__canvas-bg" data-project="telemetryiq"></canvas>
-              <span class="work-card__preview-label">Live anomaly signal</span>
-              <div class="work-card__img-alt">TelemetryIQ</div>
-            </div>
             <div class="work-card__content">
               <div class="work-card__header">
                 <span class="work-card__year">2026 – Present</span>
-                <span class="work-card__role">MLOps Infrastructure</span>
+                <span class="work-card__role">MLOps & Infra Lead</span>
               </div>
               <h3 class="work-card__title">TelemetryIQ</h3>
+              <span class="work-card__subtitle">// Autonomous ML Observability & FinOps Pipeline</span>
               <p class="work-card__description">
-                Two-stage ML anomaly pipeline using Isolation Forest for incident detection and Random Forest for classification (Leaks, Spikes, Bad Deploys). Features native Prometheus/Grafana diagnostics and FinOps economic scaling evaluations.
+                A two-stage ML observability engine combining unsupervised anomaly detection with supervised root-cause classification. Continuously monitors live distributed microservice telemetry to isolate drift, classify incident patterns, and enforce automated FinOps cost-scaling policies.
               </p>
+              <ul class="work-card__features">
+                <li class="work-card__feature-item">
+                  <span><strong>Two-Stage ML Pipeline:</strong> Isolation Forest isolates outliers while Random Forest categorizes Memory Leaks, CPU Spikes, and Bad Deploys.</span>
+                </li>
+                <li class="work-card__feature-item">
+                  <span><strong>Native Observability:</strong> Direct Prometheus metric collectors with custom Grafana dashboards and automated webhook alerts.</span>
+                </li>
+                <li class="work-card__feature-item">
+                  <span><strong>FinOps Optimization:</strong> Cost-modeling engine evaluating compute thresholds to eliminate over-provisioned infrastructure.</span>
+                </li>
+              </ul>
               <a class="work-card__github" href="https://github.com/Athullvr/TEAM-KORE-HFC" target="_blank" rel="noopener noreferrer">
                 github.com/Athullvr/TEAM-KORE-HFC ↗
               </a>
               <div class="work-card__tags">
                 <span class="work-card__tag" data-tag="ml">Scikit-learn</span>
                 <span class="work-card__tag" data-tag="ml">Isolation Forest</span>
+                <span class="work-card__tag" data-tag="ml">Random Forest</span>
                 <span class="work-card__tag" data-tag="infra">Prometheus</span>
                 <span class="work-card__tag" data-tag="infra">Grafana</span>
                 <span class="work-card__tag" data-tag="infra">FastAPI</span>
+                <span class="work-card__tag" data-tag="infra">Docker</span>
               </div>
             </div>
           </div>
 
           <!-- Metro Connect -->
           <div class="work-card card-glow-pulse" data-reveal="up">
-            <div class="work-card__image-mock">
-              <img class="work-card__photo" src="assets/metroconnect.png" alt="Kochi Metro Connect Transit Interface" loading="lazy">
-              <span class="work-card__preview-label">Live Transit Webapp</span>
-              <div class="work-card__img-alt">Metro Connect</div>
-            </div>
             <div class="work-card__content">
               <div class="work-card__header">
                 <span class="work-card__year">2026 – Present</span>
                 <span class="work-card__role">Full-Stack & Systems Lead</span>
               </div>
               <h3 class="work-card__title">Metro Connect</h3>
+              <span class="work-card__subtitle">// Multimodal Transit Copilot & Route Reasoner</span>
               <p class="work-card__description">
-                A mobile-first multimodal transit copilot unifying the 25-station Kochi Metro Blue Line, 6 Water Metro ferry routes, and feeder bus grids into an offline-first journey planner. Features a dual-mode reasoning layer with a local simulated routing engine and serverless LLM disruption adapters.
+                A mobile-first multimodal transit copilot unifying the 25-station Kochi Metro Blue Line, 6 Water Metro ferry routes, and feeder bus networks into an offline-first journey planner. Features a dual-mode reasoning layer with a local simulated routing engine and serverless LLM disruption adapters.
               </p>
+              <ul class="work-card__features">
+                <li class="work-card__feature-item">
+                  <span><strong>Dual-Engine Copilot:</strong> Offline heuristic route engine backed by serverless OpenAI proxy endpoints (/api/plan, /api/replan) for natural-language disruption reasoning.</span>
+                </li>
+                <li class="work-card__feature-item">
+                  <span><strong>Multimodal Graph Routing:</strong> Resolves inter-modal transfers (Vyttila Hub, Ernakulam South to High Court Jetty) with automated F1–F6 zone fare calculation.</span>
+                </li>
+                <li class="work-card__feature-item">
+                  <span><strong>Zero-Exposed Secrets PWA:</strong> Client-side API key protection with persistent offline journey caching for low-connectivity environments.</span>
+                </li>
+              </ul>
               <a class="work-card__github" href="https://github.com/Athullvr/Metro-Connect" target="_blank" rel="noopener noreferrer">
                 github.com/Athullvr/Metro-Connect ↗
               </a>
@@ -388,6 +413,7 @@
                 <span class="work-card__tag" data-tag="geo">Multimodal GIS</span>
                 <span class="work-card__tag" data-tag="ml">LLM Copilot</span>
                 <span class="work-card__tag" data-tag="infra">PWA</span>
+                <span class="work-card__tag" data-tag="infra">TailwindCSS</span>
               </div>
             </div>
           </div>

@@ -1114,11 +1114,52 @@ a:not(.btn):not(.top-nav__link):not(.project-card):not(.contact-social-link):not
   color: var(--color-blue-500);
 }
 
+.work-card__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-blue-500);
+  margin-top: -6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 .work-card__description {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   line-height: 1.6;
+}
+
+.work-card__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: var(--space-2) 0;
+  padding: 0;
   flex: 1;
+}
+
+.work-card__feature-item {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.work-card__feature-item:before {
+  content: "▹";
+  color: var(--color-orange-500);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.work-card__feature-item strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
 }
 
 .work-card__github {
