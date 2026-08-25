@@ -723,51 +723,78 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         drawTelemetry();
 
-      } else if (project === 'churn') {
+      } else if (project === 'metroconnect' || project === 'churn') {
         let stepTime = 0;
-        function drawANN() {
-          if (w === 0 || h === 0 || neurons.length === 0) {
-            requestAnimationFrame(drawANN);
+        function drawMetroRoutes() {
+          if (w === 0 || h === 0) {
+            requestAnimationFrame(drawMetroRoutes);
             return;
           }
           ctx.clearRect(0, 0, w, h);
-          stepTime += 0.015;
+          stepTime += 0.02;
 
-          ctx.strokeStyle = 'rgba(25, 24, 24, 0.05)';
-          ctx.lineWidth = 0.5;
-          
-          for (let l = 0; l < neurons.length - 1; l++) {
-            for (let n1 = 0; n1 < neurons[l].length; n1++) {
-              for (let n2 = 0; n2 < neurons[l+1].length; n2++) {
-                const nodeStart = neurons[l][n1];
-                const nodeEnd = neurons[l+1][n2];
-                ctx.beginPath();
-                ctx.moveTo(nodeStart.x, nodeStart.y);
-                ctx.lineTo(nodeEnd.x, nodeEnd.y);
-                ctx.stroke();
+          // Rail line 1 (Kochi Metro - Blue line style)
+          ctx.beginPath();
+          ctx.moveTo(w * 0.1, h * 0.8);
+          ctx.lineTo(w * 0.45, h * 0.5);
+          ctx.lineTo(w * 0.9, h * 0.2);
+          ctx.strokeStyle = 'rgba(42, 111, 87, 0.4)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
 
-                const ratio = (stepTime + (n1 + n2) * 0.15) % 1.0;
-                const px = nodeStart.x + (nodeEnd.x - nodeStart.x) * ratio;
-                const py = nodeStart.y + (nodeEnd.y - nodeStart.y) * ratio;
-                ctx.fillStyle = 'rgba(42, 111, 87, 0.35)';
-                ctx.beginPath();
-                ctx.arc(px, py, 1.2, 0, Math.PI * 2);
-                ctx.fill();
-              }
-            }
-          }
+          // Water Ferry route (Curved dashed waterway)
+          ctx.beginPath();
+          ctx.moveTo(w * 0.15, h * 0.25);
+          ctx.bezierCurveTo(w * 0.4, h * 0.2, w * 0.5, h * 0.75, w * 0.85, h * 0.8);
+          ctx.strokeStyle = 'rgba(200, 90, 60, 0.35)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
 
-          ctx.fillStyle = 'rgba(25, 24, 24, 0.15)';
-          for (let l = 0; l < neurons.length; l++) {
-            for (let n = 0; n < neurons[l].length; n++) {
-              ctx.beginPath();
-              ctx.arc(neurons[l][n].x, neurons[l][n].y, 2.5, 0, Math.PI * 2);
-              ctx.fill();
-            }
-          }
-          requestAnimationFrame(drawANN);
+          // Feeder bus connector
+          ctx.beginPath();
+          ctx.moveTo(w * 0.45, h * 0.5);
+          ctx.lineTo(w * 0.47, h * 0.4);
+          ctx.strokeStyle = 'rgba(25, 24, 24, 0.2)';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          // Metro Stations
+          const stations = [
+            { x: w * 0.1, y: h * 0.8, name: "Aluva" },
+            { x: w * 0.28, y: h * 0.65, name: "Kaloor" },
+            { x: w * 0.45, y: h * 0.5, name: "Vyttila Hub", hub: true },
+            { x: w * 0.68, y: h * 0.35, name: "Petta" },
+            { x: w * 0.9, y: h * 0.2, name: "Thripunithura" },
+            { x: w * 0.15, y: h * 0.25, name: "High Court", jetty: true },
+            { x: w * 0.47, y: h * 0.4, name: "Vyttila Jetty", jetty: true },
+            { x: w * 0.85, y: h * 0.8, name: "Kakkanad", jetty: true }
+          ];
+
+          stations.forEach((st, idx) => {
+            ctx.beginPath();
+            const pulse = Math.sin(stepTime * 2 + idx) * 1.5;
+            ctx.arc(st.x, st.y, st.hub ? 4 + pulse : 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = st.hub ? '#c85a3c' : (st.jetty ? '#2a6f57' : '#191818');
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          });
+
+          // Moving train / ferry indicators
+          const trainPos = (stepTime * 0.2) % 1.0;
+          const trainX = w * 0.1 + (w * 0.8) * trainPos;
+          const trainY = h * 0.8 - (h * 0.6) * trainPos;
+          ctx.beginPath();
+          ctx.arc(trainX, trainY, 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = '#22c55e';
+          ctx.fill();
+
+          requestAnimationFrame(drawMetroRoutes);
         }
-        drawANN();
+        drawMetroRoutes();
       }
     });
   }
