@@ -1,0 +1,121 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Todo from '../../components/Todo.astro';
+import Confirm from '../../components/Confirm.astro';
+import Architecture from '../../components/Architecture.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('projects');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const isTodo = (s?: string) => !!s && /TODO\(athul\)|CONFIRM\(athul\)/.test(s);
+const meta = [
+  { k: 'Timeframe', v: data.timeframe },
+  { k: 'Role', v: data.role },
+  { k: 'Team', v: data.team },
+];
+---
+
+<Base title={`${data.title} | ${site.name}`} description={data.outcome} image={`/og/${entry.id}.png`} type="article">
+  <Nav />
+  <main id="main">
+    <article class="container case">
+      <header class="case__head">
+        <a class="case__back" href="/#work">← Work</a>
+        {data.award && <p class="case__award mono">{data.award.rank} · {data.award.event}</p>}
+        <h1>{data.title}</h1>
+        <p class="case__outcome">{data.outcome}</p>
+        <dl class="case__meta">
+          {meta.map((m) => (
+            <div>
+              <dt class="label">{m.k}</dt>
+              <dd class:list={{ 'is-todo': isTodo(m.v) }}>{m.v}</dd>
+            </div>
+          ))}
+          <div>
+            <dt class="label">Links</dt>
+            <dd class="case__links">
+              <a href={data.repo} rel="noopener">Code ↗</a>
+              {data.demo ? <a href={data.demo} rel="noopener">Live demo ↗</a> : <span class="is-todo">TODO(athul): live demo link</span>}
+              {data.video ? <a href={data.video} rel="noopener">60-second video ↗</a> : <span class="is-todo">TODO(athul): 60-second video link</span>}
+            </dd>
+          </div>
+        </dl>
+      </header>
+
+      <section class="case__tldr" aria-labelledby="tldr">
+        <h2 id="tldr">TL;DR</h2>
+        <ul>{data.tldr.map((t) => <li>{t}</li>)}</ul>
+      </section>
+
+      <div class="prose">
+        <Content components={{ Todo, Confirm, Architecture }} />
+
+        <h2>Stack</h2>
+        <ul class="chips" aria-label="Stack">
+          {data.stack.map((s) => <li class="mono">{s}</li>)}
+        </ul>
+
+        {data.photos.length > 0 && (
+          <>
+            <h2>Event photos</h2>
+            <div class="photos">
+              {data.photos.map((p) => (
+                <figure>
+                  <Image src={p.src} alt={p.alt} width={800} format="webp" quality={78} loading="lazy" />
+                  {p.caption && <figcaption>{p.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .case { padding-block: var(--space-7) var(--space-9); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-7); }
+  .case__head { display: grid; gap: var(--space-3); }
+  .case__back { font-size: var(--fs-small); justify-self: start; }
+  .case__award { font-size: var(--fs-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--signal); }
+  .case__outcome { font-size: var(--fs-lead); color: var(--muted); line-height: 1.45; max-width: 44rem; }
+  .case__meta { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+  .case__meta dd { margin: 0; font-size: var(--fs-small); color: var(--ink); }
+  .case__links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+  .is-todo { font-family: var(--font-mono); font-size: var(--fs-label); line-height: 1.5; color: var(--subtle); }
+  .case__tldr { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-5); }
+  .case__tldr h2 { font-size: var(--fs-h3); margin-bottom: var(--space-3); }
+  .case__tldr ul { padding-left: 1.1rem; display: grid; gap: var(--space-2); color: var(--muted); max-width: var(--measure); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; }
+  .chips li { font-size: var(--fs-label); color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 0.15rem 0.5rem; }
+  .photos { display: grid; gap: var(--space-4); }
+  .photos img { border-radius: var(--radius); border: 1px solid var(--border); width: 100%; max-width: 40rem; height: auto; }
+  .photos figcaption { margin-top: var(--space-2); font-size: var(--fs-small); color: var(--subtle); }
+  @media (min-width: 48rem) {
+    .case__meta { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .prose :global(h2) { margin-top: var(--space-8); margin-bottom: var(--space-4); }
+  .prose :global(h3) { margin-top: var(--space-6); margin-bottom: var(--space-2); }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(p), .prose :global(ul) { margin-top: var(--space-3); color: var(--muted); }
+  .prose :global(ul) { padding-left: 1.1rem; display: grid; gap: var(--space-2); max-width: var(--measure); }
+  .prose :global(.chips) { padding-left: 0; }
+  .prose :global(code) { font-family: var(--font-mono); font-size: 0.875em; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.05em 0.35em; overflow-wrap: anywhere; }
+  .prose :global(table) { width: 100%; border-collapse: collapse; margin-top: var(--space-4); font-size: var(--fs-small); display: block; overflow-x: auto; }
+  .prose :global(th), .prose :global(td) { text-align: left; padding: var(--space-3); border-bottom: 1px solid var(--border); vertical-align: top; min-width: 8rem; }
+  .prose :global(th) { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--subtle); font-weight: 500; }
+  .prose :global(td) { color: var(--muted); }
+  .prose :global(td:nth-child(2)) { font-family: var(--font-mono); color: var(--ink); }
+</style>
