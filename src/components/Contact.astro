@@ -1,0 +1,27 @@
+---
+import { site, mailto } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="label">Contact</p>
+      <h2 id="contact-title">Let's talk about a short remote internship</h2>
+    </div>
+    <p class="contact__avail"><span class="contact__dot" aria-hidden="true"></span>{site.availability}</p>
+    <p class="contact__actions">
+      <a class="btn btn--primary" href={mailto}>{site.email}</a>
+      <a class="btn btn--secondary" href={site.resume}>Resume (PDF)</a>
+      <a class="btn btn--secondary" href={site.github} rel="noopener"><Icon name="github" size={16} />GitHub</a>
+      <a class="btn btn--secondary" href={site.linkedin} rel="noopener"><Icon name="linkedin" size={16} />LinkedIn</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .contact { border-top: 1px solid var(--border); }
+  .contact__avail { display: flex; align-items: center; gap: var(--space-2); color: var(--muted); margin-bottom: var(--space-5); }
+  .contact__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); flex: none; }
+  .contact__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); max-width: none; }
+</style>

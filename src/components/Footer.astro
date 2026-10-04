@@ -1,0 +1,16 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 {site.name} · Built with Astro</p>
+    <a href="#main">Back to top ↑</a>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); padding-block: var(--space-5); font-size: var(--fs-small); color: var(--subtle); }
+  .footer__inner { display: flex; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+  .footer a { color: var(--muted); }
+</style>

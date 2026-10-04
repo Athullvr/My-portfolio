@@ -1,0 +1,35 @@
+---
+import { timeline } from '../data/profile';
+---
+
+<section class="section" id="experience" aria-labelledby="exp-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="label">Background</p>
+      <h2 id="exp-title">Experience, education, volunteering</h2>
+    </div>
+    <ol class="tl">
+      {timeline.map((t) => (
+        <li class="tl__row">
+          <p class="tl__date mono">{t.date}</p>
+          <div>
+            <h3>{t.title}</h3>
+            <p class="tl__org">{t.group} · {t.org}</p>
+            <p class="tl__text">{t.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .tl { list-style: none; padding: 0; border-top: 1px solid var(--border); }
+  .tl__row { display: grid; gap: var(--space-1); padding-block: var(--space-5); border-bottom: 1px solid var(--border); }
+  .tl__date { font-size: var(--fs-label); letter-spacing: 0.04em; color: var(--subtle); padding-top: 0.2rem; }
+  .tl__org { font-size: var(--fs-small); color: var(--subtle); }
+  .tl__text { margin-top: var(--space-2); font-size: var(--fs-small); color: var(--muted); }
+  @media (min-width: 48rem) {
+    .tl__row { grid-template-columns: 12rem 1fr; gap: var(--space-6); }
+  }
+</style>

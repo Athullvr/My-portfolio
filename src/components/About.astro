@@ -1,0 +1,24 @@
+---
+import { about } from '../data/profile';
+---
+
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container about">
+    <div class="section-head">
+      <p class="label">About</p>
+      <h2 id="about-title">Notebook to monitored service</h2>
+    </div>
+    <div class="about__body">
+      {about.map((s) => <p>{s}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__body { display: grid; gap: var(--space-3); color: var(--muted); }
+  .about__body p { color: var(--muted); }
+  @media (min-width: 52rem) {
+    .about { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-8); }
+    .about .section-head { margin-bottom: 0; align-content: start; }
+  }
+</style>

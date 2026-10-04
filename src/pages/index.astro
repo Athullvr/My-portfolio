@@ -1,24 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, mailto } from '../data/site';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import About from '../components/About.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import SkillGroups from '../components/SkillGroups.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Base>
-  <main id="main" class="container holding">
-    <p class="label">Phase 1 scaffold</p>
-    <h1>{site.name}</h1>
-    <p class="lead">{site.positioning}</p>
-    <p class="mono small">{site.status}</p>
-    <p class="actions">
-      <a href={mailto}>Email me</a>
-      <a href={site.resume}>Resume (PDF)</a>
-    </p>
+  <Nav />
+  <main id="main">
+    <Hero />
+    <ProofStrip />
+    <WorkGrid />
+    <About />
+    <ExperienceList />
+    <SkillGroups />
+    <Contact />
   </main>
+  <Footer />
 </Base>
-
-<style>
-  .holding { padding-block: var(--space-9); display: grid; gap: var(--space-4); }
-  .lead { font-size: var(--fs-lead); color: var(--muted); }
-  .small { font-size: var(--fs-small); color: var(--subtle); }
-  .actions { display: flex; gap: var(--space-5); }
-</style>
