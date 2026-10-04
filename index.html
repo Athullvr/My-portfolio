@@ -11,17 +11,6 @@
 </head>
 <body>
 
-  <!-- Page Load Reveal Overlay -->
-  <div class="page-loader" id="page-loader">
-    <svg class="page-loader__logo" fill="none" height="48" viewBox="0 0 82 82" width="48" aria-hidden="true">
-      <path d="M0.0100037 0.00999451H81.4C81.4 11.46 81.56 22.86 81.18 34.24C81.14 35.58 78.31 37.25 76.46 38.05C58.23 45.99 39.94 53.78 21.64 62.56H80.96V81.13C76.14 81.13 71.35 81.13 66.56 81.13C51.96 81.13 37.35 81.29 22.76 80.97C20.02 80.91 16.71 79.62 14.71 77.77C-0.0799837 64.15 9.16091e-06 64.06 9.16091e-06 43.87C9.16091e-06 29.51 9.16091e-06 15.15 9.16091e-06 0L0.0100037 0.00999451ZM77.9 19.18C77.73 18.86 77.56 18.53 77.39 18.21H18.63V44.6C38.92 35.9 58.41 27.54 77.9 19.18Z" fill="currentColor"/>
-    </svg>
-    <div class="page-loader__bar-track">
-      <div class="page-loader__bar-fill"></div>
-    </div>
-    <span class="page-loader__text">initializing</span>
-  </div>
-
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" aria-hidden="true"></div>
 
@@ -91,7 +80,7 @@
           <div class="hero__pre-title" data-hero-reveal>
             <span class="system-annotation system-annotation--muted">// system.ready</span>
             <span class="system-annotation system-annotation--accent hero__micro-hook">
-              2nd Year CS · 4 Hackathons · 3 Resilient Systems
+              2nd Year CS · 3 Hackathon Podiums · 3 Shipped Systems
             </span>
           </div>
 
@@ -112,9 +101,10 @@
           </div>
 
           <div class="hero__cta" data-hero-reveal>
-            <a class="btn btn--primary" href="#focus">See My Focus</a>
+            <a class="btn btn--primary" href="mailto:athul.vr.cce@gmail.com">Email Me</a>
+            <a class="btn btn--secondary" href="#focus">See My Focus</a>
             <a class="btn btn--secondary" href="#projects">Explore Projects</a>
-            <a class="btn btn--secondary" href="javascript:window.print();" aria-label="Print or Download Resume">
+            <a class="btn btn--secondary" href="/resume.pdf" download aria-label="Download PDF Resume">
               <svg fill="currentColor" height="12" viewBox="0 0 16 16" width="12" style="margin-right: 4px;">
                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 .5-.5z"/>
                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -153,8 +143,6 @@
           <span class="marquee-separator">◆</span>
           <span class="marquee-item">PyTorch</span>
           <span class="marquee-separator">◆</span>
-          <span class="marquee-item">TensorFlow</span>
-          <span class="marquee-separator">◆</span>
           <span class="marquee-item">Scikit-Learn</span>
           <span class="marquee-separator">◆</span>
           <span class="marquee-item">Docker</span>
@@ -186,8 +174,6 @@
           <span class="marquee-item">Python</span>
           <span class="marquee-separator">◆</span>
           <span class="marquee-item">PyTorch</span>
-          <span class="marquee-separator">◆</span>
-          <span class="marquee-item">TensorFlow</span>
           <span class="marquee-separator">◆</span>
           <span class="marquee-item">Scikit-Learn</span>
           <span class="marquee-separator">◆</span>
@@ -537,19 +523,16 @@
           <div class="skills-group" data-reveal="up">
             <h3 class="skills-group__title">AI & Machine Learning</h3>
             <div class="skills-list">
-              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+              <div class="skill-item">
                 <span class="skill-name">PyTorch & LSTM</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: TelemetryIQ, Churn Analytics">
+              <div class="skill-item">
                 <span class="skill-name">Scikit-learn</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: Churn Analytics Engine">
-                <span class="skill-name">TensorFlow / Keras</span>
-              </div>
-              <div class="skill-item" data-tooltip="Used in: All Projects">
+              <div class="skill-item">
                 <span class="skill-name">Pandas & NumPy</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: All Projects">
+              <div class="skill-item">
                 <span class="skill-name">Model Training & Eval</span>
               </div>
             </div>
@@ -559,16 +542,16 @@
           <div class="skills-group" data-reveal="up">
             <h3 class="skills-group__title">Geospatial & GIS</h3>
             <div class="skills-list">
-              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+              <div class="skill-item">
                 <span class="skill-name">GeoPandas</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+              <div class="skill-item">
                 <span class="skill-name">Rasterio</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0">
+              <div class="skill-item">
                 <span class="skill-name">NetworkX (Graphs)</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: Geospatial Analysis">
+              <div class="skill-item">
                 <span class="skill-name">ArcGIS / QGIS</span>
               </div>
             </div>
@@ -578,16 +561,16 @@
           <div class="skills-group" data-reveal="up">
             <h3 class="skills-group__title">Backend & Infra</h3>
             <div class="skills-list">
-              <div class="skill-item" data-tooltip="Used in: CascadeNet v2.0, TelemetryIQ">
+              <div class="skill-item">
                 <span class="skill-name">FastAPI</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: TelemetryIQ">
+              <div class="skill-item">
                 <span class="skill-name">Prometheus & Grafana</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: BeachHack H4C">
+              <div class="skill-item">
                 <span class="skill-name">Docker</span>
               </div>
-              <div class="skill-item" data-tooltip="Used in: All Projects">
+              <div class="skill-item">
                 <span class="skill-name">Git & CI/CD</span>
               </div>
             </div>
@@ -615,7 +598,7 @@
               <div class="timeline-item" data-reveal="up">
                 <div class="timeline-header">
                   <h3 class="timeline-title">IPR Lead</h3>
-                  <span class="timeline-date">2025 – 2026 (2 mos)</span>
+                  <span class="timeline-date">TODO(athul): dates</span>
                 </div>
                 <div class="timeline-subtitle">Christ College of Engineering</div>
                 <ul class="timeline-bullets">
@@ -642,7 +625,7 @@
                 </div>
                 <div class="timeline-subtitle">Christ College of Engineering, Irinjalakuda</div>
                 <p class="timeline-desc">
-                  First-year undergraduate student. Dedicated focus on AI-assisted development paradigms, core machine learning mathematics, and infrastructure scaling.
+                  Second-year undergraduate student. Dedicated focus on AI-assisted development paradigms, core machine learning mathematics, and infrastructure scaling.
                 </p>
                 <ul class="timeline-bullets" style="margin-top: 8px;">
                   <li class="timeline-bullet"><strong>Coursework Focus:</strong> AI-Assisted Development, Systems Engineering.</li>
