@@ -2,13 +2,17 @@
   "name": "my-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Athul VR - Portfolio Website",
+  "description": "Athul VR - Portfolio",
   "scripts": {
-    "dev": "vite --port 3000 --strictPort",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev --port 3000",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
   },
-  "devDependencies": {
-    "vite": "^6.2.0"
-  }
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^5.18.2"
+  },
+  "type": "module"
 }
