@@ -10,7 +10,7 @@ export const about = [
 export const timeline = [
   {
     group: 'Experience',
-    date: 'TODO(athul): dates',
+    date: 'Jun 2026 - Present',
     title: 'IPR Lead',
     org: 'Christ College of Engineering',
     text: 'Led intellectual property awareness and innovation initiatives on campus; coordinated student projects aligned with startup pipelines.',
