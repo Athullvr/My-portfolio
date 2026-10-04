@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import profile from '../assets/profile.jpg';
+import { site, mailto } from '../data/site';
+import Contours from './Contours.astro';
+import Pipeline from './Pipeline.astro';
+import Icon from './Icon.astro';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Contours />
+  <div class="container hero__inner">
+    <div class="hero__who">
+      <Image class="hero__photo" src={profile} alt="Portrait of Athul VR" width={160} height={160} format="webp" quality={80} loading="eager" fetchpriority="high" />
+      <h1 id="hero-title">{site.name}</h1>
+    </div>
+    <p class="hero__lead hero-fade" style="--i:0">{site.positioning}</p>
+    <p class="hero__status mono hero-fade" style="--i:0">{site.status}</p>
+    <div class="hero__cta hero-fade" style="--i:1">
+      <a class="btn btn--primary" href={mailto}>Email me</a>
+      <a class="btn btn--secondary" href={site.resume}>Resume (PDF)</a>
+      <a class="hero__icon" href={site.github} aria-label="GitHub" rel="noopener"><Icon name="github" /></a>
+      <a class="hero__icon" href={site.linkedin} aria-label="LinkedIn" rel="noopener"><Icon name="linkedin" /></a>
+    </div>
+    <p class="hero__avail hero-fade" style="--i:2"><span class="hero__dot" aria-hidden="true"></span>{site.availability}</p>
+    <div class="hero-fade hero__pipeline" style="--i:2"><Pipeline /></div>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; overflow: hidden; padding-block: clamp(1.5rem, 5vw, 4.5rem) clamp(2.5rem, 6vw, 5rem); }
+  .hero__inner { position: relative; display: grid; gap: var(--space-4); justify-items: start; }
+  .hero__who { display: flex; align-items: center; gap: var(--space-4); }
+  .hero__photo { width: 4.5rem; height: 4.5rem; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 1px solid var(--border); flex: none; }
+  .hero__lead { font-size: var(--fs-lead); line-height: 1.45; color: var(--ink); max-width: 36rem; }
+  .hero__status { font-size: var(--fs-label); letter-spacing: 0.04em; color: var(--subtle); }
+  .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .hero__icon { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; color: var(--muted); border-radius: 8px; }
+  .hero__icon:hover { color: var(--accent); }
+  .hero__avail { display: flex; align-items: center; gap: var(--space-2); font-size: var(--fs-small); color: var(--muted); }
+  .hero__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); flex: none; }
+  .hero__pipeline { margin-top: var(--space-4); width: 100%; }
+  @media (min-width: 48rem) {
+    .hero__photo { width: 5.5rem; height: 5.5rem; }
+  }
+</style>

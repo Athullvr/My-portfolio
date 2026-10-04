@@ -1,0 +1,31 @@
+---
+const stages = ['ingest', 'train', 'serve', 'monitor'];
+---
+
+<ol class="pipeline" aria-label="ML pipeline: ingest, train, serve, monitor">
+  {stages.map((s, i) => (
+    <li class="stage" style={`--i:${i}`}>
+      <svg class="stage__dot" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+        <circle cx="6" cy="6" r="5" />
+      </svg>
+      <span class="stage__name mono">{s}</span>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .pipeline { display: flex; align-items: center; list-style: none; padding: 0; max-width: 28rem; }
+  .stage { display: flex; align-items: center; gap: var(--space-2); flex: 1 1 auto; }
+  .stage:last-child { flex: 0 0 auto; }
+  .stage::after {
+    content: '';
+    flex: 1 1 auto;
+    height: 1px;
+    min-width: 0.75rem;
+    margin-inline: var(--space-2);
+    background: var(--border);
+  }
+  .stage:last-child::after { display: none; }
+  .stage__dot circle { fill: var(--accent); stroke: var(--accent); stroke-width: 1; }
+  .stage__name { font-size: var(--fs-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--subtle); }
+</style>
