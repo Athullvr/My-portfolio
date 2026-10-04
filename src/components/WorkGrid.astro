@@ -1,0 +1,50 @@
+---
+import { projects } from '../data/projects';
+import { site } from '../data/site';
+import ProjectCard from './ProjectCard.astro';
+---
+
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="label">Selected work</p>
+      <h2 id="work-title">Systems I have built and shipped</h2>
+    </div>
+    <div class="bento">
+      {projects.map((p) => (
+        <div class:list={['bento__cell', p.span === 'lead' ? 'bento__cell--lead' : 'bento__cell--side']}>
+          <ProjectCard project={p} />
+        </div>
+      ))}
+      <div class="bento__cell bento__cell--half">
+        <article class="slot">
+          <p class="label">Next project</p>
+          <h3>Citadel</h3>
+          <p class="mono slot__todo">TODO(athul): Citadel details (problem, stack, your role, link, result).</p>
+        </article>
+      </div>
+      <div class="bento__cell bento__cell--half">
+        <article class="slot">
+          <p class="label">More</p>
+          <h3>Everything else is on GitHub</h3>
+          <p><a href={site.github} rel="noopener">github.com/Athullvr ↗</a></p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento { display: grid; gap: var(--space-4); }
+  .slot {
+    display: flex; flex-direction: column; gap: var(--space-3); height: 100%;
+    padding: var(--space-5); border: 1px dashed var(--border); border-radius: var(--radius);
+  }
+  .slot__todo { font-size: var(--fs-label); line-height: 1.5; color: var(--subtle); max-width: none; }
+  @media (min-width: 52rem) {
+    .bento { grid-template-columns: repeat(12, 1fr); }
+    .bento__cell--lead { grid-column: 1 / span 7; grid-row: span 2; }
+    .bento__cell--side { grid-column: 8 / span 5; }
+    .bento__cell--half { grid-column: span 6; }
+  }
+</style>

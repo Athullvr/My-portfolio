@@ -1,0 +1,65 @@
+---
+import type { Project } from '../data/projects';
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const lead = p.span === 'lead';
+---
+
+<article class:list={['card', { 'card--lead': lead }]} data-reveal>
+  <div class="card__top">
+    {p.award && <span class="card__award mono">{p.award}</span>}
+  </div>
+  <h3>{p.title}</h3>
+  <p class="card__outcome">{p.outcome}</p>
+  {lead && p.summary && <p class="card__summary">{p.summary}</p>}
+  {p.metric && (
+    <p class="card__metric"><span class="mono card__value">{p.metric.value}</span><span class="card__mlabel">{p.metric.label}</span></p>
+  )}
+  {p.metricTodo && <p class="card__todo mono">{p.metricTodo}</p>}
+  <ul class="card__chips" aria-label="Stack">
+    {p.stack.slice(0, 4).map((s) => <li class="mono">{s}</li>)}
+  </ul>
+  <p class="card__links">
+    {p.caseStudy && <a href={`/work/${p.slug}`}>Case study</a>}
+    <a href={p.repo} rel="noopener">Code ↗</a>
+  </p>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .card:hover { border-color: var(--accent-border); transform: translateY(-2px); box-shadow: var(--shadow); }
+  }
+  .card__top { min-height: 1.25rem; }
+  .card__award {
+    display: inline-block;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--signal);
+    border: 1px solid color-mix(in srgb, var(--signal) 40%, var(--border));
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+  }
+  .card--lead h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+  .card__outcome { color: var(--ink); }
+  .card__summary { color: var(--muted); font-size: var(--fs-small); }
+  .card__metric { display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+  .card__value { font-size: 1.75rem; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .card__mlabel { font-size: var(--fs-small); color: var(--muted); }
+  .card__todo { font-size: var(--fs-label); line-height: 1.5; color: var(--subtle); border: 1px dashed var(--border); border-radius: 6px; padding: var(--space-2) var(--space-3); max-width: none; }
+  .card__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; margin-top: auto; padding-top: var(--space-2); }
+  .card__chips li { font-size: var(--fs-label); color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 0.15rem 0.5rem; }
+  .card__links { display: flex; gap: var(--space-5); font-size: var(--fs-small); font-weight: 500; }
+</style>
