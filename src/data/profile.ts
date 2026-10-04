@@ -42,7 +42,7 @@ export const skills: { group: string; items: { name: string; href?: string }[] }
   {
     group: 'Machine learning',
     items: [
-      { name: 'PyTorch, LSTM', href: '/work/cascadenet' },
+      { name: 'TensorFlow/Keras, LSTM', href: '/work/cascadenet' },
       { name: 'scikit-learn', href: '/work/telemetryiq' },
       { name: 'Pandas, NumPy', href: '/work/cascadenet' },
     ],

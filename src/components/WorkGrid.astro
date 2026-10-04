@@ -1,7 +1,24 @@
 ---
-import { projects } from '../data/projects';
+import { getCollection } from 'astro:content';
+import { extraProjects, type Project } from '../data/projects';
 import { site } from '../data/site';
 import ProjectCard from './ProjectCard.astro';
+
+const entries = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const cases: Project[] = entries.map((e, i) => ({
+  slug: e.id,
+  title: e.data.title,
+  outcome: e.data.outcome,
+  summary: e.data.card.summary,
+  metric: e.data.card.metric,
+  metricTodo: e.data.card.metricTodo,
+  award: e.data.award ? `${e.data.award.rank} · ${e.data.award.event}` : undefined,
+  stack: e.data.stack.slice(0, 4),
+  repo: e.data.repo,
+  caseStudy: true,
+  span: i === 0 ? 'lead' : 'side',
+}));
+const projects = [...cases, ...extraProjects];
 ---
 
 <section class="section" id="work" aria-labelledby="work-title">

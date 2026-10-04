@@ -1,0 +1,8 @@
+---
+import ArchDiagram from './diagrams/ArchDiagram.astro';
+import { diagrams } from './diagrams/diagrams';
+interface Props { slug: keyof typeof diagrams }
+const d = diagrams[Astro.props.slug];
+---
+
+<ArchDiagram width={d.width} height={d.height} title={d.title} description={d.description} nodes={d.nodes} edges={d.edges} groups={d.groups} labels={d.labels} />

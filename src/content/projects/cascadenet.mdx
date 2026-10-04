@@ -1,0 +1,113 @@
+---
+title: CascadeNet
+outcome: 'Flood decision-support for Wayanad, Kerala: LSTM flood forecasts, a 100-scenario infrastructure cascade simulation, and alert checklists for four agencies.'
+order: 1
+award:
+  rank: 1st
+  event: Hackathena 2026
+timeframe: 'TODO(athul): hackathon dates and how long you worked on it'
+role: 'TODO(athul): what you personally built or owned'
+team: 'TODO(athul): team size and members'
+repo: https://github.com/Athullvr/CascadeNet
+tldr:
+  - 'What it is: a flood decision-support system for Wayanad, Kerala that forecasts zone-level flood risk, simulates how infrastructure failures cascade, and routes alerts to four agencies.'
+  - 'How: an LSTM forecaster, a NetworkX dependency graph with Random Forest edge weights, a 24-hour event-driven cascade simulator run over 100 scenarios, and a 0/1 knapsack budget optimizer.'
+  - 'Result: won 1st place at Hackathena 2026. TODO(athul): one measured outcome, with how it was measured.'
+stack:
+  - TensorFlow/Keras LSTM
+  - NetworkX
+  - scikit-learn
+  - FastAPI
+  - MongoDB
+  - GeoPandas
+  - Rasterio
+  - SciPy
+  - React
+  - Vite
+  - Mapbox
+card:
+  summary: 'Three parts: LSTM flood forecasts per zone, a NetworkX cascade simulation over 100 scenarios, and rules-based alert routing to Dam Safety, NDRF, the District Collector and Highways.'
+  metricTodo: 'TODO(athul): one measured metric and how it was measured'
+photos:
+  - src: ../../assets/photos/hackathena.jpg
+    alt: Hackathena 2026 1st place award ceremony
+    caption: 'Hackathena 2026, 1st place.'
+---
+
+## Problem and constraints
+
+The project README frames the problem like this: in extreme weather, critical infrastructure fails not only from direct flooding but also through upstream dependencies. A flooded substation can disable water pumps, which can in turn paralyse hospitals.
+
+The scope is Wayanad district, Kerala. The infrastructure data in the repo holds 25 nodes and 22 dependency edges across substations, water pumps, hospitals, roads and communication towers, plus 6 zones. Alerts target four agencies: Dam Safety, NDRF, the District Collector and the Highways department.
+
+<Todo>The hackathon problem statement in your words, and the real constraints: time limit, data you could get, compute, and who the intended users were.</Todo>
+<Confirm>The README mentions landslides only in zone descriptions in the data files (for example "landslide risk"), and the code models flooding. Decide whether the case study should say flood only or flood and landslide.</Confirm>
+
+## Architecture
+
+<Architecture slug="cascadenet" />
+
+<Confirm>This diagram is drawn from the README and the code in AI_ML. I could not confirm how the LSTM forecast feeds the cascade simulator, so the two lanes are drawn separately. Also confirm which of Frontend, Frontend1, Frontend_Final and Frontend_New_Final is the dashboard that shipped (the README names Frontend_New_Final).</Confirm>
+
+## Key decisions
+
+Each decision below is visible in the code. The reasons and the rejected alternatives are not in the repo.
+
+### 1. A physics-informed fallback behind the LSTM
+
+`lstm_predictor_wayanad.py` falls back to a rules-based weighted scoring engine when TensorFlow is not installed, so the forecast endpoint keeps working without it.
+
+<Todo>Why you chose a fallback, and what you rejected (for example, requiring TensorFlow, or shipping a pre-trained model file).</Todo>
+
+### 2. Failure probabilities learned from a failure log, not hand-set
+
+`dependency_graph.py` trains a Random Forest on `historical_failures_wayanad.csv` (distance, dependency type) to weight the edges of the NetworkX graph.
+
+<Todo>Why a learned edge weight, and what you rejected (for example, fixed probabilities by node type).</Todo>
+<Confirm>The failure log has 24 rows. Say whether it is real incident data or constructed for the project.</Confirm>
+
+### 3. A knapsack optimizer for the budget question
+
+`roi_calculator.py` compares baseline and hardened cascade runs and selects which assets to protect with a 0/1 knapsack dynamic program under a budget cap.
+
+<Todo>Why dynamic programming, and what you rejected (for example, a greedy ranking by ROI).</Todo>
+
+## MLOps specifics
+
+What the repo shows:
+
+- The FastAPI app in `AI_ML/src/api/main_wayanad.py` warms the cascade pipeline, the LSTM and the ROI ranking in background threads at startup.
+- Responses are cached in memory with a 60-second TTL.
+- Scenarios run in parallel with a `multiprocessing` pool.
+- Endpoints cover simulation, what-if hardening (`/harden/{node_id}`), ROI ranking and allocation, flood grids by hour, zone predictions and alert triggering.
+
+What the repo does not show: no Dockerfile, CI configuration or automated tests, and no experiment tracking or model registry.
+
+<Todo>Anything about how you ran, deployed or demoed it that is not in the repo.</Todo>
+<Confirm>No Dockerfile, CI or tests were found. If they exist elsewhere, point me to them. If not, this section is accurate as written.</Confirm>
+
+## Results
+
+These rows are scale facts read from the code and data, not performance measurements.
+
+| Item | Value | Where it comes from |
+| --- | --- | --- |
+| Scenarios per ensemble | 100 | `hazard_generator.py`, peak multiplier 0.8x to 1.2x of baseline depth |
+| Simulated window | 24 hours | `hazard_generator.py` and `cascade_propagator.py` |
+| Agencies receiving routed actions | 4 | `action_router.py` and `stakeholder_actions_wayanad.json` |
+| Infrastructure graph | 25 nodes, 22 edges | `wayanad_infrastructure.json` |
+| Forecast quality (LSTM) | TODO(athul) | The training script prints validation accuracy, but no value is recorded in the repo |
+| Time from forecast to alerts | TODO(athul) | The earlier site claimed "under 20 seconds"; I found no measurement in the code |
+
+<Todo>Measured results with the method. A good set would be LSTM validation accuracy on a held-out split, and end-to-end latency from forecast to alert payloads (p50 and p95), with the machine you ran on.</Todo>
+
+## What broke and what is next
+
+Found while reading the code:
+
+- The LSTM is trained on synthetic data. The module header says it is trained on "synthetic multi-source time-series data" standing in for NASA GPM, India WRIS and KSEB feeds.
+- When TensorFlow is missing, the fallback returns a hard-coded accuracy of 0.87 labelled as an empirical figure. It is not a measurement of this model.
+- `main_wayanad.py` imports `src.models.lstm_predictor`, but the repo ships `lstm_predictor_wayanad.py`. The API may not start from a fresh clone.
+
+<Confirm>Whether these three points are still true of the version you demoed, and whether you want them stated this plainly. I think stating them builds more trust than leaving them out.</Confirm>
+<Todo>What broke during the hackathon, and what you would build next (for example, real rainfall and gauge feeds instead of synthetic data).</Todo>

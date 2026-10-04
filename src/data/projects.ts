@@ -14,38 +14,14 @@ export interface Project {
   span: 'lead' | 'side';
 }
 
-export const projects: Project[] = [
-  {
-    slug: 'cascadenet',
-    title: 'CascadeNet',
-    outcome: 'Flood-response simulator that forecasts reservoir outflow and routes multi-agency evacuations on Kerala 2018 flood topologies.',
-    summary:
-      'Three layers: LSTM forecasting of outflow and node inundation, NetworkX routing under simulated bridge and road failures, and a FastAPI geospatial pipeline built on GeoPandas and Rasterio.',
-    metricTodo:
-      "TODO(athul): measured metric + how measured (old site claimed '100+ scenarios' and '<20 s dispatch to 5 stakeholders')",
-    award: '1st · Hackathena 2026',
-    stack: ['PyTorch LSTM', 'NetworkX', 'GeoPandas', 'FastAPI'],
-    repo: 'https://github.com/Athullvr/CascadeNet',
-    caseStudy: true,
-    span: 'lead',
-  },
-  {
-    slug: 'telemetryiq',
-    title: 'TelemetryIQ',
-    outcome: 'Two-stage ML observability: Isolation Forest flags anomalies in service telemetry, Random Forest classifies the root cause.',
-    metricTodo: 'TODO(athul): measured metric (e.g. precision/recall, detection latency)',
-    // TODO(athul): confirm BeachHack H4C 2nd place was for TelemetryIQ (repo is named TEAM-KORE-HFC).
-    award: '2nd · BeachHack H4C',
-    stack: ['Isolation Forest', 'Random Forest', 'Prometheus', 'Grafana'],
-    repo: 'https://github.com/Athullvr/TEAM-KORE-HFC',
-    caseStudy: true,
-    span: 'side',
-  },
+// Case-study projects live in src/content/projects (MDX). Only card-only projects are listed here.
+export const extraProjects: Project[] = [
   {
     slug: 'metro-connect',
     title: 'Metro Connect',
     outcome: 'Offline-first journey planner across Kochi Metro, Water Metro and feeder buses, with LLM-assisted disruption replanning.',
     metric: { value: '25 + 6', label: 'Kochi Metro stations + Water Metro routes covered' },
+    // TODO(athul): Metro Connect repo not audited yet; confirm outcome and coverage numbers.
     stack: ['React', 'Vite', 'Serverless', 'PWA'],
     repo: 'https://github.com/Athullvr/Metro-Connect',
     span: 'side',
