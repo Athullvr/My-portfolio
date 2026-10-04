@@ -2169,58 +2169,6 @@ a:not(.btn):not(.top-nav__link):not(.project-card):not(.contact-social-link):not
 }
 
 /* ==========================================
-   PAGE LOADER OVERLAY
-   ========================================== */
-.page-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: var(--color-black-900);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 16px;
-  pointer-events: all;
-}
-
-.page-loader__logo {
-  color: var(--color-cream-100);
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.page-loader__bar-track {
-  width: 120px;
-  height: 2px;
-  background: rgba(244, 244, 244, 0.1);
-  border-radius: 1px;
-  overflow: hidden;
-  opacity: 0;
-}
-
-.page-loader__bar-fill {
-  width: 0%;
-  height: 100%;
-  background: var(--color-blue-500);
-  border-radius: 1px;
-  transition: width 0.3s ease-out;
-}
-
-.page-loader__text {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(244, 244, 244, 0.4);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0;
-}
-
-.page-loader.is-loaded {
-  pointer-events: none;
-}
-
-/* ==========================================
    SECTION CLIP-PATH REVEAL TRANSITIONS
    ========================================== */
 .page-section {

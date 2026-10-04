@@ -1,31 +1,3 @@
-// Global error listener to output errors directly to the screen for visual debugging
-window.addEventListener('error', (e) => {
-  showDebugBanner(e.error || new Error(e.message));
-});
-
-function showDebugBanner(err) {
-  let banner = document.getElementById('debug-error-banner');
-  if (!banner) {
-    banner = document.createElement('div');
-    banner.id = 'debug-error-banner';
-    banner.style.position = 'fixed';
-    banner.style.top = '0';
-    banner.style.left = '0';
-    banner.style.right = '0';
-    banner.style.background = '#ff5f57';
-    banner.style.color = '#fff';
-    banner.style.padding = '20px';
-    banner.style.zIndex = '999999';
-    banner.style.fontFamily = 'monospace';
-    banner.style.fontSize = '12px';
-    banner.style.maxHeight = '50vh';
-    banner.style.overflowY = 'auto';
-    banner.style.borderBottom = '3px solid #191818';
-    document.body.appendChild(banner);
-  }
-  banner.innerHTML = `<strong>[DEBUG ERROR]</strong> ${err.message}<br><pre style="margin-top: 10px; white-space: pre-wrap;">${err.stack}</pre>`;
-}
-
 // Global charsets for scramble compile effect
 const CHARSETS = {
   default: "░▒▓█▄▀▌▐■▪▫▬▲▼◄►",
@@ -2178,65 +2150,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 11. PAGE LOADER ANIMATION
-  // ==========================================
-  function initPageLoader() {
-    const loader = document.getElementById('page-loader');
-    if (!loader) return;
-
-    let dismissed = false;
-    function dismissLoader() {
-      if (dismissed) return;
-      dismissed = true;
-      loader.classList.add('is-loaded');
-      loader.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    // Hard safety net: no matter what happens with GSAP/CDN scripts,
-    // never leave visitors stuck on a black "initializing" screen.
-    const safetyTimer = setTimeout(dismissLoader, 3500);
-
-    try {
-      const logo = loader.querySelector('.page-loader__logo');
-      const barFill = loader.querySelector('.page-loader__bar-fill');
-      const barTrack = loader.querySelector('.page-loader__bar-track');
-      const text = loader.querySelector('.page-loader__text');
-
-      if (typeof gsap === 'undefined') {
-        throw new Error('GSAP not available for page loader');
-      }
-
-      // Prevent scroll during loading
-      document.body.style.overflow = 'hidden';
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          clearTimeout(safetyTimer);
-          dismissLoader();
-        }
-      });
-
-      tl.to(logo, { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' }, 0.2)
-        .to(barTrack, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
-        .to(text, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
-        .to(barFill, { width: '100%', duration: 0.8, ease: 'power2.inOut' }, 0.5)
-        .to([logo, barTrack, text], { opacity: 0, y: -20, duration: 0.3, ease: 'power2.in', stagger: 0.05 }, '+=0.2')
-        .to(loader, {
-          clipPath: 'inset(0 0 100% 0)',
-          duration: 0.7,
-          ease: 'power3.inOut'
-        }, '-=0.1')
-        .set(loader, { display: 'none' });
-    } catch (err) {
-      // GSAP missing/failed to load (blocked CDN, offline, slow network) —
-      // don't trap visitors behind the loader, just skip the animation.
-      clearTimeout(safetyTimer);
-      dismissLoader();
-    }
-  }
-
-  // ==========================================
   // 12. SPLIT TEXT REVEALS FOR SECTION TITLES
   // ==========================================
   function initSplitTextReveals() {
@@ -2464,8 +2377,6 @@ document.addEventListener('DOMContentLoaded', () => {
       gsap.registerPlugin(ScrollTrigger);
     }
 
-    // 2. Page Loader (must be early)
-    initPageLoader();
 
     // 3. Lenis Smooth Scroll
     const lenis = initLenis();
@@ -2497,15 +2408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticButtons();
     initCanvasVisibilityPause();
   } catch (err) {
-    showDebugBanner(err);
-    // If something in the bootstrap sequence threw synchronously, don't
-    // leave the page loader covering the site or scroll locked.
-    const loader = document.getElementById('page-loader');
-    if (loader && !loader.classList.contains('is-loaded')) {
-      loader.classList.add('is-loaded');
-      loader.style.display = 'none';
-    }
-    document.body.style.overflow = '';
+    console.error(err);
   }
 
 });
