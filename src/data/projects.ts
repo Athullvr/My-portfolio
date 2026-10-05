@@ -1,4 +1,4 @@
-// Project card data. Only facts carried over from the previous site; anything unverified is a TODO(athul).
+// Project card data. Only facts carried over from the previous site.
 
 export interface Project {
   slug: string;
@@ -6,7 +6,6 @@ export interface Project {
   outcome: string;
   summary?: string;
   metric?: { value: string; label: string };
-  metricTodo?: string;
   award?: string;
   stack: string[];
   repo: string;
@@ -30,8 +29,6 @@ export const extraProjects: Project[] = [
 
 export const proof = [
   { rank: '1st', event: 'Hackathena 2026', meta: 'National · Jyothi Engineering College', href: '/work/cascadenet' },
-  // TODO(athul): confirm BeachHack project is TelemetryIQ.
   { rank: '2nd', event: 'BeachHack H4C', meta: '36-hour flagship · CCE', href: '/work/telemetryiq' },
-  // TODO(athul): no project linked for Push to Prod; link target is the work section for now.
   { rank: 'Top 150', event: 'Push to Prod: Frontier', meta: 'Anthropic × Elevation Capital · Bengaluru', href: '/#work' },
 ] as const;

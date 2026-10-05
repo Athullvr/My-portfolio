@@ -9,9 +9,10 @@ const projects = defineCollection({
       outcome: z.string(),
       order: z.number(),
       award: z.object({ rank: z.string(), event: z.string() }).optional(),
-      timeframe: z.string(),
-      role: z.string(),
-      team: z.string(),
+      timeframe: z.string().optional(),
+      role: z.string().optional(),
+      team: z.string().optional(),
+      track: z.string().optional(),
       repo: z.string().url(),
       demo: z.string().url().optional(),
       video: z.string().url().optional(),
@@ -21,7 +22,6 @@ const projects = defineCollection({
         .object({
           summary: z.string().optional(),
           metric: z.object({ value: z.string(), label: z.string() }).optional(),
-          metricTodo: z.string().optional(),
         })
         .default({}),
       photos: z.array(z.object({ src: image(), alt: z.string(), caption: z.string().optional() })).default([]),

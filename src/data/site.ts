@@ -1,5 +1,5 @@
 // Single source of truth for identity, contact and social links.
-// Do not hard-code emails or profile URLs anywhere else. The email may appear only in mailto links and JSON-LD (enforced by `npm run verify`).
+// Do not hard-code emails or profile URLs anywhere else. The email may appear only in mailto links and JSON-LD .
 
 export const site = {
   name: 'Athul VR',

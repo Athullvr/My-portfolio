@@ -15,7 +15,6 @@ const lead = p.span === 'lead';
   {p.metric && (
     <p class="card__metric"><span class="mono card__value">{p.metric.value}</span><span class="card__mlabel">{p.metric.label}</span></p>
   )}
-  {p.metricTodo && <p class="card__todo mono">{p.metricTodo}</p>}
   <ul class="card__chips" aria-label="Stack">
     {p.stack.slice(0, 4).map((s) => <li class="mono">{s}</li>)}
   </ul>
@@ -58,7 +57,6 @@ const lead = p.span === 'lead';
   .card__metric { display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
   .card__value { font-size: 1.75rem; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; }
   .card__mlabel { font-size: var(--fs-small); color: var(--muted); }
-  .card__todo { font-size: var(--fs-label); line-height: 1.5; color: var(--subtle); border: 1px dashed var(--border); border-radius: 6px; padding: var(--space-2) var(--space-3); max-width: none; }
   .card__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; margin-top: auto; padding-top: var(--space-2); }
   .card__chips li { font-size: var(--fs-label); color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 0.15rem 0.5rem; }
   .card__links { display: flex; gap: var(--space-5); font-size: var(--fs-small); font-weight: 500; }

@@ -5,14 +5,13 @@ order: 2
 award:
   rank: 2nd
   event: BeachHack H4C
-timeframe: 'CONFIRM(athul): commit dates show the hackathon build on 30 Jan to 1 Feb 2026, with later commits in Jun and Aug 2026'
-role: 'TODO(athul): what you personally built or owned'
-team: 'TODO(athul): team size and members (repo is TEAM-KORE-HFC)'
+role: 'All of the ML: the anomaly detection model and the model for the other functions'
+team: 'About 4 people'
 repo: https://github.com/Athullvr/TEAM-KORE-HFC
 tldr:
   - 'What it is: a predictive telemetry platform that scores service metrics for anomalies and ties them to recent deployment and configuration changes.'
   - 'How: 15 engineered features per service, an Isolation Forest for anomaly scoring and a Random Forest for classification, a change-correlation engine, and a Prometheus and Grafana stack run with Docker Compose.'
-  - 'Result: won 2nd place at BeachHack H4C. TODO(athul): one measured outcome, with how it was measured.'
+  - 'Result: won 2nd place at BeachHack H4C, a 36-hour hackathon.'
 stack:
   - Isolation Forest
   - Random Forest
@@ -24,8 +23,6 @@ stack:
   - Docker Compose
   - Next.js
   - Tailwind CSS
-card:
-  metricTodo: 'TODO(athul): one measured metric (for example precision and recall, or detection latency) and how it was measured'
 photos:
   - src: ../../assets/photos/beachhack.jpg
     alt: BeachHack H4C 2nd place prize ceremony
@@ -34,40 +31,31 @@ photos:
 
 ## Problem and constraints
 
+<Confirm>Problem statement pulled from the project README. Check it matches the hackathon brief.</Confirm>
+
 The README describes a platform that correlates code deployments and configuration changes with performance drops, and traces possible failure paths to estimate downstream risk, affected users and financial exposure.
 
-BeachHack H4C was a 36-hour flagship hackathon at CCE.
-
-<Todo>The hackathon problem statement in your words, and the real constraints: time limit, what data you had, and who the intended users were.</Todo>
+BeachHack H4C was a 36-hour flagship hackathon at CCE. The team was about four people, and I built all the ML: two models, one for anomaly detection and one for the other functions. Both were trained on a large mock dataset.
 
 ## Architecture
 
 <Architecture slug="telemetryiq" />
 
-<Confirm>This diagram is drawn from docker-compose.yml, prometheus.yml and backend/main.py. The `ml-service` container is commented out in docker-compose.yml, so models are loaded directly by the backend from `.pkl` files.</Confirm>
-
 ## Key decisions
 
-Each decision below is visible in the code. The reasons and the rejected alternatives are not in the repo.
+What we built and why it fits the problem.
 
 ### 1. Two models on the same features
 
-`/ml/scan` computes 15 features (CPU, memory, request and cost statistics) from recent metrics, then runs an Isolation Forest for an anomaly score and a Random Forest for a prediction with class probabilities.
-
-<Todo>Why two models, and what you rejected (for example, one supervised model, or thresholds on raw metrics).</Todo>
-<Confirm>The Random Forest's classes are not documented in the repo. The earlier site said it labels memory leaks, CPU spikes and bad deploys; the mock scenarios use those names, but I could not verify the labels without loading the pickle.</Confirm>
+`/ml/scan` computes 15 features (CPU, memory, request and cost statistics) from recent metrics, then runs an Isolation Forest for an anomaly score and a Random Forest for a prediction with class probabilities. Splitting the work this way gives one model dedicated to anomaly detection and one for everything else.
 
 ### 2. Correlate anomalies with change events
 
 `/ingest/change` records deployments and config changes, and the correlation engine compares baseline and current features around the latest change to produce a confidence and a delay in minutes.
 
-<Todo>Why correlate against changes, and what you rejected (for example, alerting on anomalies alone).</Todo>
-
-### 3. Synthetic services to test against
+### 3. Mock services to test against
 
 `mock-services` exposes Prometheus gauges and posts metrics to the backend, with three scenarios: `memory_leak`, `bad_deploy` and `good_spike`.
-
-<Todo>Why simulated telemetry, and what you rejected (for example, instrumenting a real service).</Todo>
 
 ## MLOps specifics
 
@@ -80,30 +68,19 @@ What the repo shows:
 
 What the repo does not show: Grafana dashboards (only the datasource is provisioned), alert webhooks, automatic scaling or cost policies, CI configuration, tests, or the training code and data for the models.
 
-<Todo>How the models were trained (data, split, metrics), since the repo has only the pickles.</Todo>
-<Confirm>The earlier site claimed custom Grafana dashboards, automated webhook alerts and FinOps cost-scaling policies. I found none of these in the code, so they are removed. Tell me if they exist somewhere else.</Confirm>
-
 ## Results
 
-These rows are scale facts read from the code and config, not performance measurements.
+These rows are scale facts read from the code and config. No evaluation metrics are claimed.
 
 | Item | Value | Where it comes from |
 | --- | --- | --- |
 | Engineered features per scan | 15 | `FEATURE_NAMES` in `backend/main.py` |
 | Failure scenarios in the simulator | 3 | `mock-services/scenarios/` |
 | Prometheus scrape interval | 2 s | `prometheus.yml` |
-| Anomaly detection quality | TODO(athul) | No evaluation in the repo |
-| Detection latency | TODO(athul) | No measurement in the repo |
 
-<Todo>Measured results with the method: precision and recall on labelled scenarios, and time from injected fault to flagged anomaly.</Todo>
+## Limits and what is next
 
-## What broke and what is next
+- Both models were trained on a large mock dataset, not real production telemetry.
+- Nothing broke during the build.
 
-Found while reading the code:
-
-- When the ML service is down, `/predict/impact` returns a hard-coded response marked `mocked_prediction`.
-- On the first `/ml/scan`, the correlation baseline is set to 70 percent of the current features as a demo shortcut, and `/analysis/correlate` uses 90 percent of current values as its baseline.
-- The blast-radius and FinOps panels in the dashboard read from JSON data files in the frontend.
-
-<Confirm>Whether the blast-radius and FinOps numbers shown in the dashboard are computed or static, and whether you want these points stated this plainly.</Confirm>
-<Todo>What broke during the hackathon, and what you would build next.</Todo>
+Next steps are improvements: moving to real data, adding a proper evaluation, and building a training pipeline.

@@ -4,7 +4,6 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import Todo from '../../components/Todo.astro';
 import Confirm from '../../components/Confirm.astro';
 import Architecture from '../../components/Architecture.astro';
 import { site } from '../../data/site';
@@ -18,12 +17,12 @@ const { entry } = Astro.props;
 const { data } = entry;
 const { Content } = await render(entry);
 
-const isTodo = (s?: string) => !!s && /TODO\(athul\)|CONFIRM\(athul\)/.test(s);
 const meta = [
+  { k: 'Track', v: data.track },
   { k: 'Timeframe', v: data.timeframe },
   { k: 'Role', v: data.role },
   { k: 'Team', v: data.team },
-];
+].filter((m): m is { k: string; v: string } => !!m.v);
 ---
 
 <Base title={`${data.title} | ${site.name}`} description={data.outcome} image={`/og/${entry.id}.png`} type="article">
@@ -39,15 +38,15 @@ const meta = [
           {meta.map((m) => (
             <div>
               <dt class="label">{m.k}</dt>
-              <dd class:list={{ 'is-todo': isTodo(m.v) }}>{m.v}</dd>
+              <dd>{m.v}</dd>
             </div>
           ))}
           <div>
             <dt class="label">Links</dt>
             <dd class="case__links">
               <a href={data.repo} rel="noopener">Code ↗</a>
-              {data.demo ? <a href={data.demo} rel="noopener">Live demo ↗</a> : <span class="is-todo">TODO(athul): live demo link</span>}
-              {data.video ? <a href={data.video} rel="noopener">60-second video ↗</a> : <span class="is-todo">TODO(athul): 60-second video link</span>}
+              {data.demo && <a href={data.demo} rel="noopener">Live demo ↗</a>}
+              {data.video && <a href={data.video} rel="noopener">60-second video ↗</a>}
             </dd>
           </div>
         </dl>
@@ -59,7 +58,7 @@ const meta = [
       </section>
 
       <div class="prose">
-        <Content components={{ Todo, Confirm, Architecture }} />
+        <Content components={{ Confirm, Architecture }} />
 
         <h2>Stack</h2>
         <ul class="chips" aria-label="Stack">
@@ -94,7 +93,6 @@ const meta = [
   .case__meta { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border); }
   .case__meta dd { margin: 0; font-size: var(--fs-small); color: var(--ink); }
   .case__links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
-  .is-todo { font-family: var(--font-mono); font-size: var(--fs-label); line-height: 1.5; color: var(--subtle); }
   .case__tldr { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-5); }
   .case__tldr h2 { font-size: var(--fs-h3); margin-bottom: var(--space-3); }
   .case__tldr ul { padding-left: 1.1rem; display: grid; gap: var(--space-2); color: var(--muted); max-width: var(--measure); }
@@ -104,7 +102,7 @@ const meta = [
   .photos img { border-radius: var(--radius); border: 1px solid var(--border); width: 100%; max-width: 40rem; height: auto; }
   .photos figcaption { margin-top: var(--space-2); font-size: var(--fs-small); color: var(--subtle); }
   @media (min-width: 48rem) {
-    .case__meta { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .case__meta { grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
   }
   .prose :global(h2) { margin-top: var(--space-8); margin-bottom: var(--space-4); }
   .prose :global(h3) { margin-top: var(--space-6); margin-bottom: var(--space-2); }

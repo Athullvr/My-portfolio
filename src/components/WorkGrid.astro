@@ -11,7 +11,6 @@ const cases: Project[] = entries.map((e, i) => ({
   outcome: e.data.outcome,
   summary: e.data.card.summary,
   metric: e.data.card.metric,
-  metricTodo: e.data.card.metricTodo,
   award: e.data.award ? `${e.data.award.rank} · ${e.data.award.event}` : undefined,
   stack: e.data.stack.slice(0, 4),
   repo: e.data.repo,
@@ -33,14 +32,7 @@ const projects = [...cases, ...extraProjects];
           <ProjectCard project={p} />
         </div>
       ))}
-      <div class="bento__cell bento__cell--half">
-        <article class="slot">
-          <p class="label">Next project</p>
-          <h3>Citadel</h3>
-          <p class="mono slot__todo">TODO(athul): Citadel details (problem, stack, your role, link, result).</p>
-        </article>
-      </div>
-      <div class="bento__cell bento__cell--half">
+      <div class="bento__cell bento__cell--full">
         <article class="slot">
           <p class="label">More</p>
           <h3>Everything else is on GitHub</h3>
@@ -57,11 +49,10 @@ const projects = [...cases, ...extraProjects];
     display: flex; flex-direction: column; gap: var(--space-3); height: 100%;
     padding: var(--space-5); border: 1px dashed var(--border); border-radius: var(--radius);
   }
-  .slot__todo { font-size: var(--fs-label); line-height: 1.5; color: var(--subtle); max-width: none; }
   @media (min-width: 52rem) {
     .bento { grid-template-columns: repeat(12, 1fr); }
     .bento__cell--lead { grid-column: 1 / span 7; grid-row: span 2; }
     .bento__cell--side { grid-column: 8 / span 5; }
-    .bento__cell--half { grid-column: span 6; }
+    .bento__cell--full { grid-column: 1 / -1; }
   }
 </style>
