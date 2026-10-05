@@ -8,7 +8,7 @@ export const diagrams: Record<string, Diagram> = {
     height: 430,
     title: 'CascadeNet architecture',
     description:
-      'CascadeNet architecture: a React, Vite and Mapbox dashboard calls a FastAPI backend with a MongoDB cache. The backend uses an AI/ML engine with two lanes (LSTM predictor to action router to four agencies; hazard generator and dependency graph to cascade simulator to ROI and Singularity Index outputs) and a geospatial engine using Rasterio, SciPy and GeoPandas. Derived from the repository README and code; to be confirmed.',
+      'CascadeNet architecture: a React, Vite and Mapbox dashboard calls a FastAPI backend with a MongoDB cache. The backend uses an AI/ML engine with two lanes (LSTM predictor to action router to four agencies; hazard generator and dependency graph to cascade simulator to ROI and Singularity Index outputs) and a geospatial engine using Rasterio, SciPy and GeoPandas. Derived from the repository README and code.',
     groups: [
       { x: 20, y: 168, w: 510, h: 250, label: 'AI/ML engine' },
       { x: 550, y: 168, w: 150, h: 250, label: 'Geospatial engine' },
@@ -47,7 +47,7 @@ export const diagrams: Record<string, Diagram> = {
     height: 340,
     title: 'TelemetryIQ architecture',
     description:
-      'TelemetryIQ architecture from docker-compose and code: mock services expose Prometheus gauges scraped every 2 seconds, with Grafana reading from Prometheus, and also post metrics to the FastAPI backend, which stores them in MongoDB, scores them with Isolation Forest and Random Forest models on 15 features, correlates with change events, and serves a Next.js dashboard. Derived from the repository; to be confirmed.',
+      'TelemetryIQ architecture from docker-compose and code: mock services expose Prometheus gauges scraped every 2 seconds, with Grafana reading from Prometheus, and also post metrics to the FastAPI backend, which stores them in MongoDB, scores them with Isolation Forest and Random Forest models on 15 features, correlates with change events, and serves a Next.js dashboard. Derived from the repository.',
     nodes: [
       { x: 20, y: 130, w: 170, h: 60, t1: 'Mock services', t2: '3 failure scenarios' },
       { x: 270, y: 20, w: 170, h: 52, t1: 'Prometheus', t2: 'scrape every 2 s' },

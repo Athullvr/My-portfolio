@@ -4,7 +4,6 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import Confirm from '../../components/Confirm.astro';
 import Architecture from '../../components/Architecture.astro';
 import { site } from '../../data/site';
 
@@ -58,7 +57,7 @@ const meta = [
       </section>
 
       <div class="prose">
-        <Content components={{ Confirm, Architecture }} />
+        <Content components={{ Architecture }} />
 
         <h2>Stack</h2>
         <ul class="chips" aria-label="Stack">

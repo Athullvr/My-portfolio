@@ -38,5 +38,5 @@ export const GET: APIRoute = async ({ props }) => {
   <text x="120" y="560" font-family="monospace" font-size="26" fill="#5CC497">Athul VR · athul-vr.vercel.app</text>
 </svg>`;
   const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
-  return new Response(png, { headers: { 'Content-Type': 'image/png' } });
+  return new Response(new Uint8Array(png), { headers: { 'Content-Type': 'image/png' } });
 };
