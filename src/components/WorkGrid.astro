@@ -22,17 +22,17 @@ const projects = [...cases, ...extraProjects];
 
 <section class="section" id="work" aria-labelledby="work-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       <p class="label">Selected work</p>
       <h2 id="work-title">Systems I have built and shipped</h2>
     </div>
     <div class="bento">
       {projects.map((p) => (
-        <div class:list={['bento__cell', p.span === 'lead' ? 'bento__cell--lead' : 'bento__cell--side']}>
+        <div data-reveal class:list={['bento__cell', p.span === 'lead' ? 'bento__cell--lead' : 'bento__cell--side']}>
           <ProjectCard project={p} />
         </div>
       ))}
-      <div class="bento__cell bento__cell--full">
+      <div class="bento__cell bento__cell--full" data-reveal>
         <article class="slot">
           <p class="label">More</p>
           <h3>Everything else is on GitHub</h3>
@@ -47,7 +47,7 @@ const projects = [...cases, ...extraProjects];
   .bento { display: grid; gap: var(--space-4); }
   .slot {
     display: flex; flex-direction: column; gap: var(--space-3); height: 100%;
-    padding: var(--space-5); border: 1px dashed var(--border); border-radius: var(--radius);
+    padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius);
   }
   @media (min-width: 52rem) {
     .bento { grid-template-columns: repeat(12, 1fr); }

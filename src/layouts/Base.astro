@@ -1,6 +1,7 @@
 ---
 import '../styles/tokens.css';
 import '../styles/base.css';
+import '../styles/motion.css';
 import { site } from '../data/site';
 
 interface Props {
@@ -75,6 +76,9 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     </script>
     <script type="application/ld+json" set:html={jsonLdString} />
     <slot name="head" />
+    <script>
+      import '../scripts/reveal.ts';
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

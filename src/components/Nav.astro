@@ -1,5 +1,6 @@
 ---
 import { site, mailto } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 
 <header class="nav">
@@ -10,6 +11,7 @@ import { site, mailto } from '../data/site';
       <li><a href={site.resume} aria-label="Resume (PDF)">Resume<span class="nav__pdf" aria-hidden="true"> (PDF)</span></a></li>
       <li><a href={mailto}>Email</a></li>
       <li class="nav__extra"><slot /></li>
+      <li><ThemeToggle /></li>
     </ul>
   </nav>
 </header>

@@ -32,7 +32,7 @@ const meta = [
       <header class="case__head">
         <a class="case__back" href="/#work">← Work</a>
         {data.award && <p class="case__award mono">{data.award.rank} · {data.award.event}</p>}
-        <h1>{data.title}</h1>
+        <h1 style={`view-transition-name: project-${entry.id}`}>{data.title}</h1>
         <p class="case__outcome">{data.outcome}</p>
         <dl class="case__meta">
           {meta.map((m) => (

@@ -5,11 +5,11 @@ const { project: p } = Astro.props;
 const lead = p.span === 'lead';
 ---
 
-<article class:list={['card', { 'card--lead': lead }]} data-reveal>
+<article class:list={['card', { 'card--lead': lead }]}>
   <div class="card__top">
     {p.award && <span class="card__award mono">{p.award}</span>}
   </div>
-  <h3>{p.title}</h3>
+  <h3 style={p.caseStudy ? `view-transition-name: project-${p.slug}` : undefined}>{p.title}</h3>
   <p class="card__outcome">{p.outcome}</p>
   {lead && p.summary && <p class="card__summary">{p.summary}</p>}
   {p.metric && (
@@ -34,10 +34,10 @@ const lead = p.span === 'lead';
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+    transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
   }
   @media (hover: hover) {
-    .card:hover { border-color: var(--accent-border); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
   }
   .card__top { min-height: 1.25rem; }
   .card__award {

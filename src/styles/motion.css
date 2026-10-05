@@ -1,0 +1,40 @@
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--dur-3) ease-out, transform var(--dur-3) ease-out;
+  transition-delay: calc(var(--d, 0) * 50ms);
+}
+html.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-fade {
+  animation: fade-up var(--dur-3) ease-out both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+@keyframes light-up { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: 200ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  html.js [data-reveal] { opacity: 1; transform: none; }
+  .hero-fade { animation: none; }
+  .stage__lit { animation: none !important; opacity: 1 !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

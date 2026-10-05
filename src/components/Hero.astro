@@ -22,8 +22,8 @@ import Icon from './Icon.astro';
       <a class="hero__icon" href={site.github} aria-label="GitHub" rel="noopener"><Icon name="github" /></a>
       <a class="hero__icon" href={site.linkedin} aria-label="LinkedIn" rel="noopener"><Icon name="linkedin" /></a>
     </div>
-    <p class="hero__avail hero-fade" style="--i:2"><span class="hero__dot" aria-hidden="true"></span>{site.availability}</p>
-    <div class="hero-fade hero__pipeline" style="--i:2"><Pipeline /></div>
+    <p class="hero__avail hero-fade" style="--i:1"><span class="hero__dot" aria-hidden="true"></span>{site.availability}</p>
+    <div class="hero-fade hero__pipeline" style="--i:1"><Pipeline /></div>
   </div>
 </section>
 
@@ -36,7 +36,7 @@ import Icon from './Icon.astro';
   .hero__status { font-size: var(--fs-label); letter-spacing: 0.04em; color: var(--subtle); }
   .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
   .hero__icon { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; color: var(--muted); border-radius: 8px; }
-  .hero__icon:hover { color: var(--accent); }
+  @media (hover: hover) { .hero__icon:hover { color: var(--accent); } }
   .hero__avail { display: flex; align-items: center; gap: var(--space-2); font-size: var(--fs-small); color: var(--muted); }
   .hero__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); flex: none; }
   .hero__pipeline { margin-top: var(--space-4); width: 100%; }
